@@ -170,7 +170,9 @@
                 Swal.fire("請輸入帳號密碼", "", "error");
                 return;
             }
-            firebase.auth().signInWithEmailAndPassword(inputs[0].value, inputs[1].value).catch((error) => {
+            firebase.auth().signInWithEmailAndPassword(inputs[0].value, inputs[1].value).then(() => {
+                Swal.fire("已登入", "確認後將前往信箱頁面", "success").then(() => {location.href = "/inbox"});
+            }).catch((error) => {
                 var authCode = error.code;
                 var authMsg = error.message;
                 if(authCode == "auth/wrong-password") {
@@ -184,8 +186,6 @@
                 } else {
                     Swal.fire("發生錯誤", "", "error");
                 }
-            }).then(() => {
-                Swal.fire("已登入", "確認後將前往信箱頁面", "success").then(() => {location.href = "/inbox"});
             });
         }
     </script>
