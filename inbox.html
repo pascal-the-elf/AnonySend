@@ -196,7 +196,7 @@
                     }
                 });
             } else
-                location.href = "/auth/?msg=需要登入才可以使用信件功能&rdt=/inbox";
+                location.href = "/auth/?msg=需要登入才可以使用信箱功能";
         });
         function deleteIt(code) {
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).delete().then(() => {
