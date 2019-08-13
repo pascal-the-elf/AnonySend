@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登入 | AnonySend</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.2/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyARHb953Ex6hUR10TO6z5EM3DFp3xTnX50",
+            authDomain: "anonysendmail.firebaseapp.com",
+            databaseURL: "https://anonysendmail.firebaseio.com",
+            projectId: "anonysendmail",
+            storageBucket: "",
+            messagingSenderId: "370386913250",
+            appId: "1:370386913250:web:11acadad21c586fa"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        html {
+            height: 100%;
+        }
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        body, h1, h2, h3, p, span, a {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .hide {
+            display: none !important;
+        }
+        a {
+            color: orange !important;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #ffcc77 !important;
+            text-decoration: none;
+        }
+        a:visited {
+            color: orange !important;
+            text-decoration: none;
+        }
+        a.w3-bar-item.w3-button {
+            color: black !important;
+            text-decoration: none;
+        }
+        a.w3-bar-item.w3-button:hover {
+            color: black !important;
+            text-decoration: none;
+        }
+        a.w3-bar-item.w3-button:visited {
+            color: black !important;
+            text-decoration: none;
+        }
+        div.w3-bar.w3-border-bottom {
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+        .w3-bar-item {
+            padding: 8px 10px !important;
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+        .login, .signup {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login > div, .signup > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            display: inline-block;
+            max-width: 600px;
+            text-align: left;
+        }
+        .time {
+            float: left;
+            color: gray;
+            margin: 0 0 -32px 0;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+        }
+        @media screen and (max-width: 350px) {
+            .card { width: 260px }
+            .above350 { display: none !important }
+        }
+        @media screen and (min-width: 350px) and (max-width: 400px) {
+            .card { width: 320px }
+        }
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            .card { width: 350px }
+        }
+        @media screen and (min-width: 700px) {
+            .card { width: 600px }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
+            <a class="w3-bar-item w3-button w3-text-black w3-right" href="/auth/">登入</a>
+        </div>
+        <div class="wrapper">
+            <div class="card w3-card w3-round-large">
+                <div class="login w3-margin">
+                    <h3><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></h3>
+                    <div class="w3-container" style="width: 100%">
+                        <div style="width: 100%">
+                            <label>電子郵件</label>
+                            <input class="w3-input" type="text">
+                        </div>
+                        <div style="width: 100%">
+                            <label>密碼</label>
+                            <input class="w3-input" type="text">
+                        </div>
+                        <button class="w3-button w3-border w3-margin w3-round" style="width: 100%" onclick="_login()"> 登入 </button>
+                    </div>
+                </div>
+                <hr>
+                <div class="signup w3-margin">
+                    <div class="w3-container" style="width: 100%">
+                        <button class="w3-button w3-border w3-margin w3-round" style="width: 100%" onclick="location.href='./signup'"> 註冊 </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>
+            Copyright © 2019 AnonySend. <br>
+            All rights reserved.
+        </span>
+    </div>
+    <script>
+        if(urlKey("msg")) {
+            Swal.fire(urlKey("msg"));
+        }
+        var inputs = document.getElementsByTagName("input");
+        function _login() {
+            if(!inputs[0].value || !inputs[1].value) {
+                Swal.fire("請輸入帳號密碼", "", "error");
+                return;
+            }
+            firebase.auth().signInWithEmailAndPassword(inputs[0].value, inputs[1].value).catch((error) => {
+                var authCode = error.code;
+                var authMsg = error.message;
+                if(authCode == "auth/wrong-password") {
+                    Swal.fire("密碼錯誤", "", "error");
+                } else if(authCode == "auth/user-not-found") {
+                    Swal.fire("此帳號不存在", "如要註冊請 <a href='./signup'>按此</a>", "error");
+                } else if(authCode == "auth/invalid-email email") {
+                    Swal.fire("電子郵件格式錯誤", "", "error");
+                } else if(authCode == "auth/user-disabled") {
+                    Swal.fire("此帳號已被停用", "", "error");
+                } else {
+                    Swal.fire("發生錯誤", "", "error");
+                }
+            }).then(() => {
+                Swal.fire("已登入", "確認後將前往信箱頁面", "success").then(() => {location.href = "/inbox"});
+            });
+        }
+    </script>
+</body>
+</html>
