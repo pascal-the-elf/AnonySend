@@ -187,8 +187,8 @@
             firebase.auth().createUserWithEmailAndPassword(inputs[1].value, inputs[2].value).then((user) => {
                 console.log(firebase.auth().currentUser.uid);
                 db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
-                    DisplayName: name,
-                    Email: email
+                    DisplayName: inputs[0].value,
+                    Email: inputs[1].value
                 }).then(()=>{
                     firebase.auth().currentUser.sendEmailVerification();
                     Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往信箱頁面", "success").then(()=>{location.href="/inbox"});
