@@ -7,21 +7,7 @@
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script>
-        var secure = (async function(){
-            var code = "";
-            var t = Date.now().toString(36);
-            var p = "";
-            var ipgeo = await fetch("https://geo.ipify.org/api/v1?apiKey=at_REHehjpF3smA3bvtRifrWRK6TOcXG")
-                .then(d => d.json());
-            var dp = ipgeo.ip.split(".");
-            for(var i = 0; i < dp.length; i++) {
-                p += parseInt(dp[i]).toString(36).padStart(2, "0");
-            }
-            var plt = parseInt(navigator.platform.toLowerCase().replace(" ", "").replace(".", ""), 36).toString(16);
-            var g = parseInt((ipgeo.location.country + ipgeo.location.city).replace(" ", "").replace(".", ""), 36).toString(16);
-            code = t + "-" + p + "-" + plt + "-" + g;
-            return code;
-        })().then(x => secure = x);
+        var _0x2eb7=["\x74\x68\x65\x6E","","\x6E\x6F\x77","\x6A\x73\x6F\x6E","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x65\x6F\x2E\x69\x70\x69\x66\x79\x2E\x6F\x72\x67\x2F\x61\x70\x69\x2F\x76\x31\x3F\x61\x70\x69\x4B\x65\x79\x3D\x61\x74\x5F\x52\x45\x48\x65\x68\x6A\x70\x46\x33\x73\x6D\x41\x33\x62\x76\x74\x52\x69\x66\x72\x57\x52\x4B\x36\x54\x4F\x63\x58\x47","\x2E","\x73\x70\x6C\x69\x74","\x69\x70","\x6C\x65\x6E\x67\x74\x68","\x30","\x70\x61\x64\x53\x74\x61\x72\x74","\x72\x65\x70\x6C\x61\x63\x65","\x20","\x74\x6F\x4C\x6F\x77\x65\x72\x43\x61\x73\x65","\x70\x6C\x61\x74\x66\x6F\x72\x6D","\x63\x6F\x75\x6E\x74\x72\x79","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x63\x69\x74\x79","\x2D"];var secure=(async function(){var _0xb83dx3=_0x2eb7[1];var _0xb83dx4=Date[_0x2eb7[2]]().toString(36);var _0xb83dx5=_0x2eb7[1];var _0xb83dx6= await fetch(_0x2eb7[4])[_0x2eb7[0]]((_0xb83dx7)=>_0xb83dx7[_0x2eb7[3]]());var _0xb83dx8=_0xb83dx6[_0x2eb7[7]][_0x2eb7[6]](_0x2eb7[5]);for(var _0xb83dx9=0;_0xb83dx9< _0xb83dx8[_0x2eb7[8]];_0xb83dx9++){_0xb83dx5+= parseInt(_0xb83dx8[_0xb83dx9]).toString(36)[_0x2eb7[10]](2,_0x2eb7[9])};var _0xb83dxa=parseInt(navigator[_0x2eb7[14]][_0x2eb7[13]]()[_0x2eb7[11]](_0x2eb7[12],_0x2eb7[1])[_0x2eb7[11]](_0x2eb7[5],_0x2eb7[1]),36).toString(16);var _0xb83dxb=parseInt((_0xb83dx6[_0x2eb7[16]][_0x2eb7[15]]+ _0xb83dx6[_0x2eb7[16]][_0x2eb7[17]])[_0x2eb7[11]](_0x2eb7[12],_0x2eb7[1])[_0x2eb7[11]](_0x2eb7[5],_0x2eb7[1]),36).toString(16);_0xb83dx3= _0xb83dx4+ _0x2eb7[18]+ _0xb83dx5+ _0x2eb7[18]+ _0xb83dxa+ _0x2eb7[18]+ _0xb83dxb;return _0xb83dx3})()[_0x2eb7[0]]((_0xb83dx2)=>secure= _0xb83dx2)
     </script>
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
