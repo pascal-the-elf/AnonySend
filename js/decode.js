@@ -1,3 +1,19 @@
+var secure = (async function(){
+    var code = "";
+    var t = Date.now().toString(36);
+    var p = "";
+    var ipgeo = await fetch("https://geo.ipify.org/api/v1?apiKey=at_REHehjpF3smA3bvtRifrWRK6TOcXG")
+        .then(d => d.json());
+    var dp = ipgeo.ip.split(".");
+    for(var i = 0; i < dp.length; i++) {
+        p += parseInt(dp[i]).toString(36).padStart(2, "0");
+    }
+    var plt = parseInt(navigator.platform.toLowerCase().replace(" ", "").replace(".", ""), 36).toString(16);
+    var g = parseInt((ipgeo.location.country + ipgeo.location.city).replace(" ", "").replace(".", ""), 36).toString(16);
+    code = t + "-" + p + "-" + plt + "-" + g;
+    return code;
+})().then(x => secure = x);
+
 function decode(secure) {
     var result = {};
     var code = secure.split("-");
