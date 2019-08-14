@@ -136,7 +136,7 @@
         <!-- Navigation -->
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
-            <a class="w3-bar-item w3-button w3-text-black w3-right" href="/auth/">登入</a>
+            <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
         
         <div class="detail">
@@ -165,6 +165,8 @@
         const detail = document.getElementsByClassName("detail")[0];
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
+                document.getElementsByClassName("auth")[0].href = "/settings";
+                username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
                 db.collection("Inbox").where("owner", "==", firebase.auth().currentUser.uid).get().then(function(querySnapshot) {
                     if(querySnapshot.size == 0) {
                         
@@ -401,6 +403,21 @@
                     Swal.fire("已取消刪除", "", "info");
                 }
             });
+        }
+        function username(uid=UID) {
+            console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+            return new Promise(x=>x("none"));
         }
     </script>
 </body>
