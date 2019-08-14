@@ -1,0 +1,1 @@
+!function(){localStorage._ONLYKEY||(localStorage._ONLYKEY=function(){const o="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";for(var n="",r=0;r<32;r++)n+=o[Math.floor(Math.random()*o.length)];return n}());var o=String(localStorage._ONLYKEY);window.ONLYKEY=function(){return o}}();
