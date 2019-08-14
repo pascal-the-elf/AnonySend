@@ -9,6 +9,7 @@
     <script>var ip; fetch("https://api.ipify.org/?format=json").then(r => r.json()).then(r => ip=r.ip)</script>
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://cdn.jsdelivr.net/gh/faisalman/ua-parser-js@0.7.20/src/ua-parser.min.js"></script>
@@ -123,7 +124,7 @@
         <!-- Navigation -->
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
-            <a class="w3-bar-item w3-button w3-text-black w3-right" href="/auth/">登入</a>
+            <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
         <div class="w3-margin-top w3-center stage hide">
             <div class="wrapper">
@@ -141,6 +142,12 @@
         </span>
     </div>
     <script>
+        firebase.auth().onAuthStateChanged(user => {
+            if(user) {
+                document.getElementsByClassName("auth")[0].href = "/settings";
+                username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
+            }
+        });
         var name, uid;
         if(!urlKey("u")) {
             Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
