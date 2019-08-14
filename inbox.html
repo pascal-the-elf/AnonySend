@@ -169,21 +169,34 @@
             if(user) {
                 db.collection("Inbox").where("owner", "==", firebase.auth().currentUser.uid).get().then(function(querySnapshot) {
                     if(querySnapshot.size == 0) {
-                        Swal.fire({
-                            title: "建立匿名信箱",
-                            text: "請輸入想要的信箱代碼",
-                            type: "info",
+                        
+                        Swal.mixin({
                             input: 'text',
-                            inputAttributes: {
-                                autocapitalize: 'off'
+                            confirmButtonText: '下一步',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            progressSteps: ['1', '2']
+                        }).queue([
+                            {
+                                title: '建立匿名信箱',
+                                text: '請輸入想要的信箱代碼',
+                                inputValidator: (value) => {
+                                    if (value.length < 4) {
+                                        return '最少需要 4 個字'
+                                    }
+                                }
+                            },
+                            {
+                                title: '建立匿名信箱',
+                                text: '請輸入一句你想跟寄件者說的話'
                             }
-                        }).then(result => {
+                        ]).then((result) => {
                             if(result.value) {
-                                db.collection("Inbox").doc(String(result.value)).set({
+                                db.collection("Inbox").doc(String(result.value[0])).set({
                                     owner: firebase.auth().currentUser.uid,
-                                    description: ""
+                                    description: String(result.value[1])
                                 }).then(() => {
-                                    Swal.fire("已建立", "信箱位址: https://1481.ga/send?u="+result.value, "success").then(()=>{location.reload()});
+                                    Swal.fire("已建立", "信箱位址: "+location.protocol+"//"+location.hostname+"/i/"+result.value[0], "success").then(()=>{location.reload()});
                                 }).catch(e => {
                                     console.error(e);
                                     Swal.fire("已有人使用此代碼", "", "error").then(()=>{location.reload()});
@@ -350,8 +363,8 @@
                 
                 bar.classList.add("w3-bar", "w3-border-bottom");
                 url.classList.add("w3-bar-item");
-                url.innerHTML = "1481.ga/send?u="+doc.id;
-                url.href = "https://www.1481.ga/send?u="+doc.id;
+                url.innerHTML = "AnonySend.ml/i/"+doc.id;
+                url.href = location.protocol+"//"+location.hostname+"/i/"+doc.id;
                 url.target = "_blank";
                 inboxes.push(doc.id);
                 
