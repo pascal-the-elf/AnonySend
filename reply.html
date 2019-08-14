@@ -171,6 +171,21 @@
             e[0].innerHTML = d.message || "無";
             e[1].innerHTML = d.response || "目前沒有回覆";
         }
+        function username(uid=UID) {
+            console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+            return new Promise(x=>x("none"));
+        }
     </script>
 </body>
 </html>
