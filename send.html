@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>匿名信箱 | AnonySend</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+    <script>var ip; fetch("https://api.ipify.org/?format=json").then(r => r.json()).then(r => ip=r.ip)</script>
+    <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://cdn.jsdelivr.net/gh/faisalman/ua-parser-js@0.7.20/src/ua-parser.min.js"></script>
+    <script src="js/only.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyARHb953Ex6hUR10TO6z5EM3DFp3xTnX50",
+            authDomain: "anonysendmail.firebaseapp.com",
+            databaseURL: "https://anonysendmail.firebaseio.com",
+            projectId: "anonysendmail",
+            storageBucket: "",
+            messagingSenderId: "370386913250",
+            appId: "1:370386913250:web:11acadad21c586fa"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
+        html {
+            height: 100%;
+        }
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        body, h1, h2, h3, p, span, a {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .hide {
+            display: none !important;
+        }
+        a {
+            color: orange !important;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #ffcc77 !important;
+            text-decoration: none;
+        }
+        a:visited {
+            color: orange !important;
+            text-decoration: none;
+        }
+        a.w3-bar-item.w3-button {
+            color: black !important;
+            text-decoration: none;
+        }
+        a.w3-bar-item.w3-button:hover {
+            color: black !important;
+            text-decoration: none;
+        }
+        a.w3-bar-item.w3-button:visited {
+            color: black !important;
+            text-decoration: none;
+        }
+        div.w3-bar.w3-border-bottom {
+            position: sticky;
+            top: 0;
+            background-color: white;
+        }
+        .w3-bar-item {
+            padding: 8px 10px !important;
+        }
+        h2 {
+            margin: 0 0 -16px 0;
+        }
+        .stage {
+            
+        }
+        .wrapper {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+        }
+        .message {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .footer {
+            width: 100%;
+            text-align: center;
+        }
+        button {
+            width: 100px;
+        }
+        @media screen and (max-width: 350px) {
+            .message { width: 260px }
+        }
+        @media screen and (min-width: 350px) and (max-width: 400px) {
+            .message { width: 320px }
+        }
+        @media screen and (min-width: 400px) and (max-width: 700px) {
+            .message { width: 350px }
+        }
+        @media screen and (min-width: 700px) {
+            .message { width: 500px }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <!-- Navigation -->
+        <div class="w3-bar w3-border-bottom">
+            <a class="w3-bar-item w3-button" href="/"><span style="color: black !important; word-spacing: 1px;">HSNU</span> <b class="BlueGradient" style="color: royalblue;">1481</b></a> <a class="w3-bar-item w3-button w3-text-black" href="/news">新聞</a> <a class="w3-bar-item w3-button w3-text-black" href="/curriculum">課表</a> <a class="w3-bar-item w3-button w3-text-black" href="/forum">論壇</a> <a class="w3-bar-item w3-button w3-text-black" href="/product">產品</a> <a class="w3-bar-item w3-button w3-text-black w3-right" href="/me"><i class="fas fa-user-circle" style="font-size: 1.5rem;"></i></a>
+        </div>
+        <div class="w3-margin-top w3-center stage hide">
+            <div class="wrapper">
+                <h2>匿名信箱</h2>
+                <h1 class="head"></h1>
+                <textarea class="message w3-input w3-border w3-round" rows="8"></textarea>
+                <button class="w3-margin-top w3-button w3-border w3-round" onclick="Swal.fire({title: '傳送中', type: 'info', showConfirmButton: false});msg(document.getElementsByClassName('message')[0].value);this.onclick=function(){}">傳送</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer w3-container w3-white">
+        <span>Copyright © 2019 HSNU <b class="BlueGradient" style="color: royalblue;">1481</b>.<br>
+            All rights reserved.</span>
+    </div>
+    <script>
+        var name, uid;
+        if(!urlKey("u")) {
+            Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
+        } else {
+            db.collection("Inbox").doc(urlKey("u")).get().then(doc => {
+                if(!doc.exists) {
+                    Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
+                } else {
+                    uid = doc.data().owner;
+                    username(doc.data().owner).then(n => name = n).then(() => {
+                        document.title = name + " 的匿名信箱 | AnonySend";
+                        Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
+                            setTimeout(function(){
+                                document.getElementsByClassName("head")[0].innerHTML = name;
+                                document.getElementsByClassName("stage")[0].classList.remove("hide");
+                            }, 500);
+                        });
+                    });
+                }
+            });
+        }
+        function username(uid=UID) {
+            console.log(uid);
+            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
+            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
+                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
+            else
+                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
+                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
+                    var l = JSON.parse(localStorage["UserNameList"]);
+                    l[uid] = doc.data().DisplayName;
+                    localStorage["UserNameList"] = JSON.stringify(l);
+                    return doc.data().DisplayName;
+                }));
+            return new Promise(x=>x("none"));
+        }
+        function msg(message, name="anonymous") {
+            if(!message) return Swal.fire("無法發送", "", "error");
+            let t = Date.now();
+            db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(String(t)).set({
+                message: message,
+                name: name,
+                time: new Date(),
+                security: {
+                    ip: ip,
+                    device: (!UAParser().device.model ? "" : UAParser().device),
+                    os: UAParser().os,
+                    browser: UAParser().browser
+                },
+                response: "",
+                resolved: false,
+                from: urlKey("u"),
+                ONLYKEY: ONLYKEY()
+            }).then(() => {
+                Swal.fire({
+                    title: "訊息已傳送",
+                    text: "代碼："+t,
+                    type: "success",
+                    timer: 6000
+                }).then(() => {
+                    document.getElementsByClassName('message')[0].value = "";
+                    location.href = "/reply?u="+urlKey("u")+"&c="+t;
+                });
+            });
+        }
+    </script>
+</body>
+</html>
