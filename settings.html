@@ -152,15 +152,20 @@
         </span>
     </div>
     <script>
+        var changed = 0;
         var input = document.getElementsByTagName("input");
         for(var i = 0; i < 3; i++) {
             input[i].addEventListener("keyup", e => {
+                changed = 1;
                 if(e.keyCode === 13 || e.which === 13) {
                     save(1);
                 }
             });
             input[i].addEventListener("blur", () => {
-                save(0);
+                if(changed) {
+                    save(0);
+                    changed = 0;
+                }
             });
         }
         
