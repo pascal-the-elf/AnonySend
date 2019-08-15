@@ -102,9 +102,11 @@
         }
         @media screen and (max-width: 350px) {
             .message { width: 260px }
+            .giant {font-size: 2.8rem !important}
         }
         @media screen and (min-width: 350px) and (max-width: 400px) {
             .message { width: 320px }
+            .giant {font-size: 3.4rem !important}
         }
         @media screen and (min-width: 400px) and (max-width: 700px) {
             .message { width: 350px }
@@ -112,17 +114,71 @@
         @media screen and (min-width: 700px) {
             .message { width: 500px }
         }
+        .head:before {
+            display: none;
+            content: "";
+            overflow: hidden;
+            position: absolute;
+            width: 110vmax;
+            height: 110vmax;
+            z-index: -1;
+            background-image: url("https://pollinators-tw.github.io/resource/image/background/background_1.png");
+            background-position: center center;
+            dbackground-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            animation: head-ani 30s linear infinite;
+        }
+        .head {
+            height: 70vh;
+            color: black;
+            box-shadow: inset 0 2px 5px 0 rgba(0,0,0,0.16), inset 0px -5px 10px 0 rgba(0,0,0,0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-image: url("https://anonysend.ml/resource/img/background/background.svg");
+            background-position: center center;
+            dbackground-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        @keyframes head-ani {
+            0% {
+                transform:rotate(0deg);
+            }
+            100% {
+                transform:rotate(360deg);
+            }
+        }
+        .des {
+            display: inline-block;
+            width: 25%;
+            min-width: 280px;
+        }
     </style>
 </head>
 <body>
     <div class="content">
         <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
+        <div class="w3-bar w3-border-bottom w3-card">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
-        <div class="w3-margin-top w3-center w3-container stage">
-            
+        <div class="head">
+            <h1 class="giant" style="font-size: 4rem;"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></h1>
+            <span>免費, 簡潔, 無廣告的匿名信服務</span>
+        </div>
+        <div class="w3-center w3-margin">
+            <button class="w3-button w3-border w3-round w3-large" style="min-width: 280px; width: 30%" onclick="location.href='inbox'"> 立刻開始使用 </button>
+            <hr>
+            <h2>免費</h2>
+            <p class="des"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b> 所有的功能都是免費的。我們也會確保現在的這些功能在未來將繼續免費。</p>
+            <h2>簡潔</h2>
+            <p class="des"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b> 的所有介面都非常直覺且容易操作。不同類型的按鈕也依照對應功能上色。</p>
+            <h2>無廣告</h2>
+            <p class="des"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b> 中不會放置任何的商業廣告，我們相信給使用者一個乾淨清爽的介面是我們的責任。</p>
         </div>
     </div>
     <div class="footer w3-container w3-white">
