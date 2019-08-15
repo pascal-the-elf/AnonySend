@@ -120,6 +120,7 @@
         <!-- Navigation -->
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
+            <a class="w3-bar-item w3-button" href="inbox">信箱</a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
         <div class="w3-center">
@@ -221,7 +222,7 @@
             }).then(() => {
                 checker++;
                 if(checker == 2) {
-                    Swal.fire("已儲存", "", "success").then(() => {location.reload()});
+                    Swal.fire("已儲存", "", "success").then(() => {});
                     checker == 0;
                 }
             });
@@ -230,7 +231,7 @@
             }).then(() => {
                 checker++;
                 if(checker == 2) {
-                    Swal.fire("已儲存", "", "success").then(() => {location.reload()});
+                    Swal.fire("已儲存", "", "success").then(() => {});
                     checker == 0;
                 }
             });
