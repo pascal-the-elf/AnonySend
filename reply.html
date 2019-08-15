@@ -126,6 +126,7 @@
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
+        <div id="bar"></div>
         <div class="w3-margin-top w3-center w3-container stage">
             <div class="wrapper">
                 <h1>匿名回覆</h1>
@@ -145,6 +146,26 @@
         </span>
     </div>
     <script>
+        let bar = document.createElement("div");
+        let url = document.createElement("a");
+        let copy = document.createElement("span");
+
+        bar.classList.add("w3-bar", "w3-border-bottom");
+        url.classList.add("w3-bar-item");
+        url.innerHTML = "查看此回覆";
+        url.href = location.href;
+        url.target = "_blank";
+
+        copy.innerHTML = '<i class="far fa-clone w3-margin-left"></i>' + " 複製";
+        copy.onclick = function() {Swal.fire("已複製", "", "success")};
+        copy.dataset.clipboardText = location.href;
+        copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "ib", "copy");
+        new ClipboardJS(copy);
+
+        bar.appendChild(url);
+        bar.appendChild(copy);
+        document.getElementById("bar").appendChild(bar);
+        
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 document.getElementsByClassName("auth")[0].href = "/settings";
