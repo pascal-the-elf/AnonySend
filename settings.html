@@ -124,8 +124,23 @@
         </div>
         <div class="w3-center">
             <div class="wrapper w3-padding">
-                <h2>信箱</h2>
+                <h2>個人資訊</h2>
+                <hr>
+                <label>名稱</label>
+                <input class="w3-input" type="text">
+                <br>
                 
+                <h2>信箱偏好</h2>
+                <hr>
+                <fieldset class="w3-round">
+                    <legend>Inbox Name</legend>
+                    <label>代碼</label>
+                    <input class="w3-input" type="text">
+                    <label>描述</label>
+                    <input class="w3-input" type="text">
+                    <label class="hide">顏色</label>
+                    <input class="w3-input hide" type="text">
+                </fieldset>
             </div>
         </div>
     </div>
@@ -136,12 +151,44 @@
         </span>
     </div>
     <script>
+        var input = document.getElementsByTagName("input");
+        for(var i = 0; i < 3; i++) {
+            input[i].addEventListener("keyup", e => {
+                if(e.keyCode === 13 || e.which === 13) {
+                    save(1);
+                }
+            });
+            input[i].addEventListener("blur", () => {
+                save(0);
+            });
+        }
+        
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 document.getElementsByClassName("auth")[0].href = "/settings";
                 username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
+                loadDefault();
+            } else {
+                location.href = "/auth/?msg=需要登入";
             }
         });
+        function loadDefault() {
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").get().then(doc => {
+                input[0].value = doc.data().DisplayName;
+            });
+            db.collection("Inbox").where("owner", "==", firebase.auth().currentUser.uid).limit(1).get().then(querySnapshot => {
+                if(querySnapshot.size == 0) location.href = "inbox";
+                else {
+                    querySnapshot.forEach(doc => {
+                        document.getElementsByTagName("legend")[0].innerHTML = doc.id;
+                        input[1].value = doc.id;
+                        input[1].disabled = true;
+                        input[1].onclick = function(){Swal.fire("可以從信箱頁面刪除重新建立", "這不會刪除信件", "")};
+                        input[2].value = doc.data().description;
+                    });
+                }
+            });
+        }
         function username(uid=UID) {
             console.log(uid);
             if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
@@ -156,6 +203,37 @@
                     return doc.data().DisplayName;
                 }));
             return new Promise(x=>x("none"));
+        }
+        var checker = 0;
+        function save(x) {
+            console.log("saving...");
+            if(!input[0].value || input[1].value.length < 4 || !input[2].value) {
+                if(x) Swal.fire("無法儲存", "資料格式有誤或資料有缺", "error");
+                return console.log("shutdown");
+            }
+            Swal.fire({
+                title: '儲存中',
+                type: 'info',
+                showConfirmButton: false
+            });
+            db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").update({
+                DisplayName: input[0].value
+            }).then(() => {
+                checker++;
+                if(checker == 2) {
+                    Swal.fire("已儲存", "", "success").then(() => {location.reload()});
+                    checker == 0;
+                }
+            });
+            db.collection("Inbox").doc(input[1].value).update({
+                description: input[2].value
+            }).then(() => {
+                checker++;
+                if(checker == 2) {
+                    Swal.fire("已儲存", "", "success").then(() => {location.reload()});
+                    checker == 0;
+                }
+            });
         }
     </script>
 </body>
