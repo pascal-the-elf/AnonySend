@@ -9,6 +9,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image" content="resource/img/AnonySend.fbpreview.png">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="resource/css/loading.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.0/release/URL-Key.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
@@ -122,7 +123,8 @@
             <a class="w3-bar-item w3-button" href="inbox">信箱</a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
-        <div class="w3-center">
+        <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div class="w3-center hide">
             <div class="wrapper w3-padding">
                 <h2>個人資訊</h2>
                 <hr>
@@ -178,8 +180,14 @@
             }
         });
         function loadDefault() {
+            var loaded = 0, finish = 2;
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").get().then(doc => {
                 input[0].value = doc.data().DisplayName;
+                loaded += 1;
+                if(loaded == finish) {
+                    document.getElementsByClassName("hide")[0].classList.remove("hide");
+                    document.getElementsByClassName("loading")[0].classList.add("loadinghide");
+                }
             });
             db.collection("Inbox").where("owner", "==", firebase.auth().currentUser.uid).limit(1).get().then(querySnapshot => {
                 if(querySnapshot.size == 0) location.href = "inbox";
@@ -191,6 +199,11 @@
                         input[1].onclick = function(){Swal.fire("可以從信箱頁面刪除重新建立", "這不會刪除信件", "")};
                         input[2].value = doc.data().description;
                     });
+                }
+                loaded += 1;
+                if(loaded == finish) {
+                    document.getElementsByClassName("hide")[0].classList.remove("hide");
+                    document.getElementsByClassName("loading")[0].classList.add("loadinghide");
                 }
             });
         }
