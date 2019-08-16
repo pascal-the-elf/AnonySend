@@ -72,3 +72,19 @@
         opacity: 0.5;
     }
 }
+.loadinghide {
+    animation: hideloading 0.6s linear forwards 1;
+}
+@keyframes hideloading {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}
