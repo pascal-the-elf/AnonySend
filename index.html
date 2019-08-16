@@ -9,6 +9,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image" content="resource/img/AnonySend.fbpreview.png">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
         html {
@@ -98,21 +99,6 @@
         @media screen and (min-width: 700px) {
             .message { width: 500px }
         }
-        .head:before {
-            display: none;
-            content: "";
-            overflow: hidden;
-            position: absolute;
-            width: 110vmax;
-            height: 110vmax;
-            z-index: -1;
-            background-image: url("https://pollinators-tw.github.io/resource/image/background/background_1.png");
-            background-position: center center;
-            dbackground-attachment: fixed;
-            background-repeat: no-repeat;
-            background-size: cover;
-            animation: head-ani 30s linear infinite;
-        }
         .head {
             height: 70vh;
             color: black;
@@ -121,21 +107,13 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-image: url("https://anonysend.ml/resource/img/background/background.svg");
+            background-image: url("resource/img/background/background.svg");
             background-position: center center;
             dbackground-attachment: fixed;
             background-repeat: no-repeat;
             background-size: cover;
         }
         
-        @keyframes head-ani {
-            0% {
-                transform:rotate(0deg);
-            }
-            100% {
-                transform:rotate(360deg);
-            }
-        }
         .des {
             display: inline-block;
             width: 25%;
@@ -194,7 +172,6 @@
             return new Promise(x=>x("none"));
         }
     </script>
-    <script src="https://kit.fontawesome.com/336cbec3f1.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
