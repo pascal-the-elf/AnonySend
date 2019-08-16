@@ -1,6 +1,7 @@
 .loading {
     display: flex;
     height: 70vh;
+    width: 100vw;
     justify-content: center;
     align-items: center;
     zoom: 1.2;
@@ -81,6 +82,8 @@
     }
     99% {
         opacity: 0;
+        height: 70vh;
+        width: 100vw;
     }
     100% {
         opacity: 0;
