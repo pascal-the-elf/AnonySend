@@ -150,7 +150,7 @@
                 <hr>
                 <div class="signup w3-margin">
                     <div class="w3-container" style="width: 100%">
-                        <button class="w3-button w3-border w3-margin w3-round" style="width: 100%" onclick="location.href='./signup'"> 註冊 </button>
+                        <button id="btn" class="w3-button w3-border w3-margin w3-round" style="width: 100%" onclick="location.href='./signup'"> 註冊 </button>
                     </div>
                 </div>
             </div>
@@ -163,6 +163,17 @@
         </span>
     </div>
     <script>
+        var input = document.getElementsByTagName("input");
+        input[0].addEventListener("keyup", e => {
+            if(e.keyCode === 13 || e.which === 13) {
+                input[1].focus();
+            }
+        });
+        input[1].addEventListener("keyup", e => {
+            if(e.keyCode === 13 || e.which === 13) {
+                _login()
+            }
+        });
         firebase.auth().onAuthStateChanged(user => {
             if(user && fa) {
                 location.href = "/settings";
@@ -180,6 +191,7 @@
                 Swal.fire("請輸入帳號密碼", "", "error");
                 return;
             }
+            document.getElementById("btn").disabled = true;
             firebase.auth().signInWithEmailAndPassword(inputs[0].value, inputs[1].value).then(() => {
                 Swal.fire("已登入", "確認後將前往信箱頁面", "success").then(() => {location.href = "/inbox"});
             }).catch((error) => {
@@ -196,6 +208,7 @@
                 } else {
                     Swal.fire("發生錯誤", "", "error");
                 }
+                document.getElementById("btn").disabled = false;
             });
         }
         function username(uid=UID) {
