@@ -1,10 +1,11 @@
 .loading {
     display: flex;
     height: 70vh;
-    width: 100vw;
+    width: 100%;
     justify-content: center;
     align-items: center;
     zoom: 1.2;
+    position: fixed;
 }
 .lds-grid {
     display: inline-block;
@@ -83,7 +84,7 @@
     99% {
         opacity: 0;
         height: 70vh;
-        width: 100vw;
+        width: 100%;
     }
     100% {
         opacity: 0;
