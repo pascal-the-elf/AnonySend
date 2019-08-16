@@ -153,7 +153,7 @@
                             <label>再次輸入密碼</label>
                             <input class="w3-input" type="password">
                         </div>
-                        <button class="w3-button w3-border w3-margin w3-round" style="width: 100%" onclick="_signup()"> 註冊 </button>
+                        <button id="btn" class="w3-button w3-border w3-margin w3-round" style="width: 100%" onclick="_signup()"> 註冊 </button>
                     </div>
                 </div>
                 <hr>
@@ -172,6 +172,27 @@
         </span>
     </div>
     <script>
+        var input = document.getElementsByTagName("input");
+        input[0].addEventListener("keyup", e => {
+            if(e.keyCode === 13 || e.which === 13) {
+                input[1].focus();
+            }
+        });
+        input[1].addEventListener("keyup", e => {
+            if(e.keyCode === 13 || e.which === 13) {
+                input[2].focus();
+            }
+        });
+        input[2].addEventListener("keyup", e => {
+            if(e.keyCode === 13 || e.which === 13) {
+                input[3].focus();
+            }
+        });
+        input[3].addEventListener("keyup", e => {
+            if(e.keyCode === 13 || e.which === 13) {
+                _signup();
+            }
+        });
         firebase.auth().onAuthStateChanged(user => {
             if(user && fa) {
                 location.href = "/settings";
@@ -193,6 +214,7 @@
                 Swal.fire("密碼不相符", "", "error");
                 return;
             }
+            document.getElementById("btn").disabled = true;
             firebase.auth().createUserWithEmailAndPassword(inputs[1].value, inputs[2].value).then((user) => {
                 console.log(firebase.auth().currentUser.uid);
                 db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
@@ -202,7 +224,6 @@
                     firebase.auth().currentUser.sendEmailVerification();
                     Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往信箱頁面", "success").then(()=>{location.href="/inbox"});
                 });
-                
             })
                 .catch((error) => {
                     var authCode = error.code;
@@ -214,6 +235,7 @@
                     } else if(authCode == "auth/invalid-email") {
                         Swal.fire("電子郵件格式錯誤", "", "error");
                     }
+                    document.getElementById("btn").disabled = false;
                 });
         }
         function username(uid=UID) {
