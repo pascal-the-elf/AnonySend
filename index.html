@@ -149,46 +149,7 @@
             All rights reserved.
         </span>
     </div>
-    <script>
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-                document.getElementsByClassName("auth")[0].href = "/settings";
-                username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
-            }
-        });
-        function username(uid=UID) {
-            console.log(uid);
-            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
-            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
-                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
-            else
-                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
-                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
-                    var l = JSON.parse(localStorage["UserNameList"]);
-                    l[uid] = doc.data().DisplayName;
-                    localStorage["UserNameList"] = JSON.stringify(l);
-                    return doc.data().DisplayName;
-                }));
-            return new Promise(x=>x("none"));
-        }
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
-    <script>
-        var firebaseConfig = {
-            apiKey: "AIzaSyARHb953Ex6hUR10TO6z5EM3DFp3xTnX50",
-            authDomain: "anonysendmail.firebaseapp.com",
-            databaseURL: "https://anonysendmail.firebaseio.com",
-            projectId: "anonysendmail",
-            storageBucket: "",
-            messagingSenderId: "370386913250",
-            appId: "1:370386913250:web:11acadad21c586fa"
-        };
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        var db = firebase.firestore();
-    </script>
+    
     <script src="https://unpkg.com/quicklink@1.0.0/dist/quicklink.umd.js"></script>
     <script>
         quicklink({
