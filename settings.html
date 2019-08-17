@@ -255,7 +255,7 @@
                 checker++;
                 if(checker == 2) {
                     Swal.fire("已儲存", "", "success").then(() => {});
-                    checker == 0;
+                    checker = 0;
                 }
             });
             db.collection("Inbox").doc(input[1].value).update({
@@ -265,7 +265,7 @@
                 checker++;
                 if(checker == 2) {
                     Swal.fire("已儲存", "", "success").then(() => {});
-                    checker == 0;
+                    checker = 0;
                 }
             });
         }
