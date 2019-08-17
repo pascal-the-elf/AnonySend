@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>登入 | AnonySend</title>
+    <title>登入 | Pollinators</title>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/pascal-the-elf/js-library@1.2/release/URL-Key.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.0/firebase-auth.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script>
         var firebaseConfig = {
-            apiKey: "AIzaSyARHb953Ex6hUR10TO6z5EM3DFp3xTnX50",
-            authDomain: "anonysendmail.firebaseapp.com",
-            databaseURL: "https://anonysendmail.firebaseio.com",
-            projectId: "anonysendmail",
-            storageBucket: "",
-            messagingSenderId: "370386913250",
-            appId: "1:370386913250:web:11acadad21c586fa"
+		    apiKey: "AIzaSyCHj0NT0wgX4xY3xne61wYdNAE8O00Udmg",
+		    authDomain: "pollinators-tw.firebaseapp.com",
+		    databaseURL: "https://pollinators-tw.firebaseio.com",
+		    projectId: "pollinators-tw",
+		    storageBucket: "pollinators-tw.appspot.com",
+		    messagingSenderId: "564856964449",
+		    appId: "1:564856964449:web:48306d90390377c8"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -26,55 +26,99 @@
         
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
-        html {
-            height: 100%;
+        @import url('https://fonts.googleapis.com/css?family=Comfortaa|Noto+Sans+TC&display=swap');
+        
+        .bar {
+            z-index: 10;
+            position: fixed;
         }
-        body {
-            min-height: 100%;
-            display: flex;
-            flex-direction: column;
+        .sidebar {
+            z-index: 20;
+            position: fixed;
+            left: -200px;
+            animation: sidebar-hide-ani 0.8s forwards 1;
         }
-        .content {
-            flex: 1;
+        .sidebar-show {
+            animation: sidebar-show-ani 0.8s forwards 1;
         }
-        body, h1, h2, h3, p, span, a {
-            font-family: 'Noto Sans TC', sans-serif;
+        @keyframes sidebar-show-ani {
+            0% {
+                left: -200px;
+            }
+            100% {
+                left: 0px;
+            }
         }
-        .hide {
-            display: none !important;
+        @keyframes sidebar-hide-ani {
+            0% {
+                left: 0px;
+            }
+            100% {
+                left: -200px;
+            }
         }
-        a {
-            color: orange !important;
-            text-decoration: none;
-        }
-        a:hover {
-            color: #ffcc77 !important;
-            text-decoration: none;
-        }
-        a:visited {
-            color: orange !important;
-            text-decoration: none;
-        }
-        a.w3-bar-item.w3-button {
-            color: black !important;
-            text-decoration: none;
-        }
-        a.w3-bar-item.w3-button:hover {
-            color: black !important;
-            text-decoration: none;
-        }
-        a.w3-bar-item.w3-button:visited {
-            color: black !important;
-            text-decoration: none;
-        }
-        div.w3-bar.w3-border-bottom {
-            position: sticky;
+        .barrier {
+            position: fixed;
             top: 0;
-            background-color: white;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 11;
+            animation: barrier-gone-ani 0.8s forwards 1;
+            background-color: rgba(0, 0, 0, .6);
+        }
+        .barrier-active {
+            display: block !important;
+            animation: barrier-active-ani 0.8s forwards 1;
+        }
+        @keyframes barrier-active-ani {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes barrier-gone-ani {
+            0% {
+                opacity: 1;
+            }
+            99% {
+                opacity: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+            100% {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+        }
+        .head {
+            background-image: url("https://pollinators-tw.github.io/resource/image/background/background_1.png");
+            background-position: center center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 70vh;
+            color: black;
+            box-shadow: inset 0 2px 5px 0 rgba(0,0,0,0.16), inset 0px -5px 10px 0 rgba(0,0,0,0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
         .w3-bar-item {
             padding: 8px 10px !important;
+            font-size: 1.1rem;
+        }
+        .block {
+            z-index: 10;
+            width: 100vw;
+            padding: 0 0 8px 0;
+        }
+        .hide {
+            display: none !important;
         }
         .wrapper {
             display: flex;
@@ -125,16 +169,27 @@
     </style>
 </head>
 <body>
+    <div class="barrier" onclick="sidebar()"></div>
     <div class="content">
+        <!-- Sidebar -->
+        <div class="sidebar w3-sidebar w3-bar-block w3-border-right" style="opacity: 0">
+            <a href="javascript:sidebar()" class="w3-bar-item w3-buteton w3-large">關閉</a>
+            <a class="w3-bar-item w3-button" href="/about"><b>關於 Pollinators</b></a>
+            <a class="w3-bar-item w3-button" href="/database/"><b>公開資料庫</b></a>     
+            <a class="w3-bar-item w3-button" href="/research"><b>研究報告</b></a>
+            <a class="w3-bar-item w3-button" href="/cooperation"><b>合作對象</b></a>
+        </div>
+        <script>setTimeout(()=>document.getElementsByClassName("sidebar")[0].style.opacity=1, 800)</script>
         <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
-            <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
-            <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
+        <div class="bar w3-card w3-bar w3-white">
+            <a class="w3-bar-item w3-button" href="javascript:sidebar()"><i class="fas fa-bars"></i></a>
+            <a class="w3-bar-item w3-button w3-indigo" href="/"><b>Pollinators</b></a>
+            <a class="w3-bar-item w3-button w3-right" href="/auth/?tab=login"><b>登入</b></a>
         </div>
         <div class="wrapper">
             <div class="card w3-card w3-round-large">
                 <div class="login w3-margin">
-                    <h3><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></h3>
+                    <h3><b>Pollinators</b></h3>
                     <div class="w3-container" style="width: 100%">
                         <div style="width: 100%">
                             <label>電子郵件</label>
@@ -158,7 +213,7 @@
     </div>
     <div class="footer w3-container w3-white">
         <span>
-            Copyright © 2019 AnonySend. <br>
+            Copyright © 2019 Pollinators Project. <br>
             All rights reserved.
         </span>
     </div>
@@ -176,9 +231,7 @@
         });
         firebase.auth().onAuthStateChanged(user => {
             if(user && fa) {
-                location.href = "/settings";
-                document.getElementsByClassName("auth")[0].href = "/settings";
-                username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
+                location.href = "/me";
                 fa = 0;
             }
         });
@@ -193,7 +246,7 @@
             }
             document.getElementById("btn").disabled = true;
             firebase.auth().signInWithEmailAndPassword(inputs[0].value, inputs[1].value).then(() => {
-                Swal.fire("已登入", "確認後將前往信箱頁面", "success").then(() => {location.href = "/inbox"});
+                Swal.fire("已登入", "確認後將前往個人頁面", "success").then(() => {location.href = "/me"});
             }).catch((error) => {
                 var authCode = error.code;
                 var authMsg = error.message;
@@ -211,20 +264,14 @@
                 document.getElementById("btn").disabled = false;
             });
         }
-        function username(uid=UID) {
-            console.log(uid);
-            if(uid=="匿名使用者") return new Promise(x=>x("匿名使用者"));
-            if(localStorage["UserNameList"] && JSON.parse(localStorage["UserNameList"])[uid])
-                return new Promise(x=>x(JSON.parse(localStorage["UserNameList"])[uid]));
-            else
-                return (db.collection("User").doc(uid).collection("Open").doc("basic").get().then(doc=>{
-                    localStorage["UserNameList"] ? true : localStorage["UserNameList"] = "{}";
-                    var l = JSON.parse(localStorage["UserNameList"]);
-                    l[uid] = doc.data().DisplayName;
-                    localStorage["UserNameList"] = JSON.stringify(l);
-                    return doc.data().DisplayName;
-                }));
-            return new Promise(x=>x("none"));
+        function sidebar() {
+            getClass("sidebar").classList.toggle("sidebar-show");
+            getClass("barrier").classList.toggle("barrier-active");
+        }
+        function getClass(cls, one=true) {
+            if(one)
+                return document.getElementsByClassName(cls)[0];
+            return document.getElementsByClassName(cls);
         }
     </script>
 </body>
