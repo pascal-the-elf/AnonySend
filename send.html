@@ -231,13 +231,13 @@
                 b.style.backgroundRepeat = "no-repeat";
                 b.style.backgroundSize = "cover";
                 b.style.backgroundAttachment = "fixed";
-                c("w3-bar").style.borderBottom = "transparent!important";
-                c("w3-bar").style.backgroundColor = "transparent!important";
-                c("message").style.backgroundColor = "#ffffff8f!important";
-                c("message").style.border = "0!important";
-                c("subbtn").style.backgroundColor = "#ffffff8f!important";
-                c("subbtn").style.border = "0!important";
-                c("footer").style.backgroundColor = "transparent!important";
+                c("w3-bar").style.setProperty("border-bottom", "transparent", "important");
+                c("w3-bar").style.setProperty("background-color", "transparent", "important");
+                c("message").style.setProperty("background-color", "#ffffff8f", "important");
+                c("message").style.setProperty("border", "0", "important");
+                c("subbtn").style.setProperty("background-color", "#ffffff8f", "important");
+                c("subbtn").style.setProperty("border", "0", "important");
+                c("footer").style.setProperty("background-color", "transparent", "important");
             }
         }
         function c(n) {return document.getElementsByClassName(n)[0]}
