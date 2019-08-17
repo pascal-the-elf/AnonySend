@@ -161,6 +161,10 @@
         <div class="w3-margin-top w3-center stage">
             
         </div>
+        <div class="w3-center w3-margin topage">
+            <button id="pp" class="w3-button w3-border w3-round hide" onclick="latest.splice(-1, 2);listen(modenow)">上一頁</button>
+            <button id="np" class="w3-button w3-border w3-round hide" onclick=";listen(modenow)">下一頁</button>
+        </div>
     </div>
     <div class="footer w3-container w3-white">
         <span>
@@ -169,6 +173,7 @@
         </span>
     </div>
     <script>
+        var end = 0, latest = [Date.now()], modenow;
         var listener = function(){console.log("Listener Registered.")};
         var inboxes = [];
         const stage = document.getElementsByClassName("stage")[0];
@@ -272,25 +277,26 @@
         }
         function listen(mode="all") {
             listener();
+            modenow = mode;
             for(var i = 0; i < 3; i++) {
                 listen_type.getElementsByTagName("button")[i].classList.remove("w3-black", "w3-hover-black");
             }
             if(mode == "all") {
-                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").startAt(new Date(latest[latest.length-1]-1)).limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[1].classList.add("w3-black", "w3-hover-black");
                 window.history.replaceState("Inbox: ALL", "信箱 | HSNU 1481", "?type=all");
             }
             if(mode == "checked") {
-                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").startAt(new Date(latest[latest.length-1]-1)).limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[2].classList.add("w3-black", "w3-hover-black");
                 window.history.replaceState("Inbox: CHECKED", "信箱 | HSNU 1481", "?type=checked");
             }
             if(mode == "unchecked") {
-                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").startAt(new Date(latest[latest.length-1]-1)).limit(20).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[0].classList.add("w3-black", "w3-hover-black");
@@ -299,8 +305,8 @@
             listen_type.classList.remove("hide");
         }
         function refresh(querySnapshot) {
+            var tmpl;
             stage.innerHTML = "";
-            
             if(querySnapshot.size == 0) {
                 let wrapper = document.createElement("div");
                 let card = document.createElement("div");
@@ -312,6 +318,12 @@
                 card.appendChild(msg);
                 wrapper.appendChild(card);
                 stage.appendChild(wrapper);
+                document.getElementsByClassName("topage")[0].classList.add("hide");
+            } else {
+                document.getElementsByClassName("topage")[0].classList.remove("hide");
+            }
+            if(querySnapshot.size != 20) {
+                end = 1;
             }
             querySnapshot.forEach(function(doc) {
                 var data = doc.data();
@@ -364,8 +376,21 @@
                 card.appendChild(tools);
                 wrapper.appendChild(card);
                 stage.appendChild(wrapper);
-            })
-            
+                tmpl = data.time.toDate().getTime();
+            });
+            if(tmpl) {
+                latest.push(tmpl);
+            }
+            if(!end) {
+                document.getElementById("np").classList.remove("hide");
+            } else {
+                document.getElementById("np").classList.add("hide");
+            }
+            if(latest.length > 1) {
+                document.getElementById("pp").classList.remove("hide");
+            } else {
+                document.getElementById("pp").classList.add("hide");
+            }
         }
         function inboxDetail(querySnapshot) {
             querySnapshot.forEach(function(doc) {
