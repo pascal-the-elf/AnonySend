@@ -179,7 +179,7 @@
         }
         document.getElementsByClassName("style-selector")[0].addEventListener("change", () => {
             save(1);
-        }
+        });
         
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
