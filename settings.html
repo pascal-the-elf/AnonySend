@@ -141,8 +141,11 @@
                     <input class="w3-input" type="text" disabled>
                     <label>描述</label>
                     <input class="w3-input" type="text">
-                    <label class="hide">顏色</label>
-                    <input class="w3-input hide" type="text">
+                    <label>樣式</label>
+                    <select class="w3-select style-selector" name="option">
+                        <option value="standard">標準</option>
+                        <option value="colorful">彩色</option>
+                    </select>
                 </fieldset>
                 <br>
                 <div class="w3-center" style="width: 100%">
@@ -202,8 +205,10 @@
                         document.getElementsByTagName("legend")[0].innerHTML = doc.id;
                         input[1].value = doc.id;
                         input[1].disabled = true;
-                        input[1].onclick = function(){Swal.fire("可以從信箱頁面刪除重新建立", "這不會刪除信件", "")};
                         input[2].value = doc.data().description;
+                        let index = 0;
+                        if(doc.data().style == "colorful") index = 1;
+                        document.getElementsByClassName("style-selector")[0].options[index].selected = true;
                     });
                 }
                 loaded += 1;
@@ -252,6 +257,7 @@
             });
             db.collection("Inbox").doc(input[1].value).update({
                 description: input[2].value
+                style: document.getElementsByClassName("style-selector")[0].value;
             }).then(() => {
                 checker++;
                 if(checker == 2) {
