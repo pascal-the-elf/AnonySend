@@ -154,9 +154,9 @@
             
         </div>
         <div class="w3-center w3-margin listen-type hide">
-            <button class="w3-button w3-border w3-round" onclick="listen('unchecked')">未確認</button>
-            <button class="w3-button w3-border w3-round" onclick="listen('all')">全部</button>
-            <button class="w3-button w3-border w3-round" onclick="listen('checked')">已確認</button>
+            <button class="w3-button w3-border w3-round" onclick="latest.splice(-1, 1);listen('unchecked')">未確認</button>
+            <button class="w3-button w3-border w3-round" onclick="latest.splice(-1, 1);listen('all')">全部</button>
+            <button class="w3-button w3-border w3-round" onclick="latest.splice(-1, 1);listen('checked')">已確認</button>
         </div>
         <div class="w3-margin-top w3-center stage">
             
