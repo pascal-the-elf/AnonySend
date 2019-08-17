@@ -140,7 +140,7 @@
                 <h2>匿名信箱</h2>
                 <h1 class="head"></h1>
                 <textarea class="message w3-input w3-border w3-round" rows="8"></textarea>
-                <button class="w3-margin-top w3-button w3-border w3-round" onclick="Swal.fire({title: '傳送中', type: 'info', showConfirmButton: false});msg(document.getElementsByClassName('message')[0].value);this.onclick=function(){}">傳送</button>
+                <button class="subbtn w3-margin-top w3-button w3-border w3-round" onclick="Swal.fire({title: '傳送中', type: 'info', showConfirmButton: false});msg(document.getElementsByClassName('message')[0].value);this.onclick=function(){}">傳送</button>
             </div>
         </div>
     </div>
@@ -166,6 +166,7 @@
                     Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
                 } else {
                     uid = doc.data().owner;
+                    if(doc.data().style) styled(doc.data().style);
                     username(doc.data().owner).then(n => name = n).then(() => {
                         document.title = name + " 的匿名信箱 | AnonySend";
                         Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
@@ -222,6 +223,24 @@
                 });
             });
         }
+        function styled(style) {
+            if(style=="colorful") {
+                let b = document.body;
+                b.style.backgroundImage = "url(resource/img/background/background.svg)";
+                b.style.backgroundPosition = "center center";
+                b.style.backgroundRepeat = "no-repeat";
+                b.style.backgroundSize = "cover";
+                b.style.backgroundAttachment = "fixed";
+                c("w3-bar").style.borderBottom = "transparent";
+                c("w3-bar").style.backgroundColor = "transparent";
+                c("message").style.backgroundColor = "#ffffff8f";
+                c("message").style.border = "0";
+                c("subbtn").style.backgroundColor = "#ffffff8f";
+                c("subbtn").style.border = "0";
+                c("footer").style.backgroundColor = "transparent";
+            }
+        }
+        function c(n) {return document.getElementsByClassName(n)[0]}
     </script>
 </body>
 </html>
