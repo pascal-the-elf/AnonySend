@@ -256,7 +256,7 @@
                 }
             });
             db.collection("Inbox").doc(input[1].value).update({
-                description: input[2].value
+                description: input[2].value,
                 style: document.getElementsByClassName("style-selector")[0].value;
             }).then(() => {
                 checker++;
