@@ -276,21 +276,21 @@
                 listen_type.getElementsByTagName("button")[i].classList.remove("w3-black", "w3-hover-black");
             }
             if(mode == "all") {
-                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").orderBy("time", "desc").limit(30).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[1].classList.add("w3-black", "w3-hover-black");
                 window.history.replaceState("Inbox: ALL", "信箱 | HSNU 1481", "?type=all");
             }
             if(mode == "checked") {
-                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", true).orderBy("time", "desc").limit(30).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[2].classList.add("w3-black", "w3-hover-black");
                 window.history.replaceState("Inbox: CHECKED", "信箱 | HSNU 1481", "?type=checked");
             }
             if(mode == "unchecked") {
-                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(20).onSnapshot(function(querySnapshot) {
+                listener = db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").where("resolved", "==", false).orderBy("time", "desc").limit(30).onSnapshot(function(querySnapshot) {
                     refresh(querySnapshot);
                 });
                 listen_type.getElementsByTagName("button")[0].classList.add("w3-black", "w3-hover-black");
