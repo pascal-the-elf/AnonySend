@@ -4,6 +4,10 @@ if (workbox) {
     console.log("[SW]: WorkBox Loaded");
 }
 workbox.routing.registerRoute(
+    new RegExp('inbox'),
+    workbox.strategies.networkFirst()
+);
+workbox.routing.registerRoute(
     new RegExp('.*\.js'),
     workbox.strategies.networkFirst()
 );
@@ -26,16 +30,10 @@ workbox.routing.registerRoute(
   })
 );
 workbox.precaching.precacheAndRoute([
+    "/",
+    "/inbox",
+    "/settings",
     "/resource/img/background/background.svg",
     "/resource/img/background/ocean.svg",
     "/resource/img/background/mountains.svg"
 ]);
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.open(cacheName)
-      .then(cache => cache.match(event.request, {ignoreSearch: true}))
-      .then(response => {
-      return response || fetch(event.request);
-    })
-  );
-});
