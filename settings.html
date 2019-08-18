@@ -145,6 +145,7 @@
                     <select class="w3-select style-selector" name="option">
                         <option value="standard">標準</option>
                         <option value="colorful">彩色</option>
+                        <option value="ocean">海洋</option>
                     </select>
                 </fieldset>
                 <br>
@@ -211,6 +212,7 @@
                         input[2].value = doc.data().description;
                         let index = 0;
                         if(doc.data().style == "colorful") index = 1;
+                        if(doc.data().style == "ocean") index = 2;
                         document.getElementsByClassName("style-selector")[0].options[index].selected = true;
                     });
                 }
