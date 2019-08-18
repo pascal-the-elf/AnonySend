@@ -268,6 +268,16 @@
                 fullscreen();
                 console.log("此背景由 SVGBackgrounds.com 提供");
             }
+            if(style=="random-geo") {
+                let script = document.createElement("script");
+                script.onload = function() {
+                    fullscreen();
+                    let b = document.body;
+                    b.style.backgroundImage = GeoPattern.generate(String(Date.now())).toDataUrl();
+                };
+                script.src = "https://cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js";
+                console.log("此背景由 github.com/btmills/geopattern 提供");
+            }
         }
         function c(n) {return document.getElementsByClassName(n)[0]}
     </script>
