@@ -202,6 +202,8 @@
                 document.getElementsByClassName("auth")[0].href = "/settings";
                 username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
                 fa = 0;
+            } else {
+                fa = 0;
             }
         });
         if(urlKey("msg")) {
@@ -218,8 +220,10 @@
                 return;
             }
             document.getElementById("btn").disabled = true;
+            Swal.fire({title: '正在驗證', text: '這可能需要 3~5 秒', showConfirmButton: false});
             firebase.auth().createUserWithEmailAndPassword(inputs[1].value, inputs[2].value).then((user) => {
                 console.log(firebase.auth().currentUser.uid);
+                Swal.fire({title: '正在註冊', text: '這可能需要 5~10 秒', showConfirmButton: false});
                 db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
                     DisplayName: inputs[0].value,
                     Email: inputs[1].value
