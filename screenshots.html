@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Screenshots</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (1).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (2).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (3).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (4).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (5).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (6).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (7).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (8).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (9).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (10).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (11).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (12).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (13).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (14).png" as="image">
+    <link rel="preload" href="https://anonysend.ml/resource/img/screenshots/i8plus (15).png" as="image">
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background-color: black;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            width: 100%;
+            max-width: 414px;
+        }
+    </style>
+</head>
+<body>
+    <img id="img"></img>
+    <script>
+        img.src = "https://anonysend.ml/resource/img/screenshots/i8plus (1).png";
+        setTimeout(function(){
+            change(2);
+        }, 1000);
+        function change(x) {
+            if(x >= 16) x = 1;
+            img.src = "https://anonysend.ml/resource/img/screenshots/i8plus ("+x+").png";
+            setTimeout(function(){change(++x)}, 200);
+        }
+    </script>
+</body>
+</html>
