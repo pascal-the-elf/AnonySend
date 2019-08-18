@@ -283,7 +283,7 @@
                 script.src = "https://cdnjs.cloudflare.com/ajax/libs/geopattern/1.2.3/js/geopattern.min.js";
                 script.onload = function() {
                     fullscreen();
-                    b.style.backgroundImage = GeoPattern.generate(String(Date.now())).toDataUrl();
+                    b.style.backgroundImage = GeoPattern.generate(String(Date.now()),{baseColor: "#fc5656"}).toDataUrl();
                 };
                 b.appendChild(script);
                 console.log("此背景由 github.com/btmills/geopattern 提供");
