@@ -141,7 +141,7 @@
                 <h2>匿名信箱</h2>
                 <h1 class="head"></h1>
                 <textarea class="message w3-input w3-border w3-round" rows="8"></textarea>
-                <button class="subbtn w3-margin-top w3-button w3-border w3-round" onclick="Swal.fire({title: '傳送中', type: 'info', showConfirmButton: false});msg(document.getElementsByClassName('message')[0].value);this.onclick=function(){}">傳送</button>
+                <button class="subbtn w3-margin-top w3-button w3-border w3-round" onclick="Swal.fire({title: '傳送中', type: 'info', showConfirmButton: false});msg(document.getElementsByClassName('message')[0].value)">傳送</button>
             </div>
         </div>
     </div>
@@ -198,7 +198,11 @@
             return new Promise(x=>x("none"));
         }
         function msg(message, name="anonymous") {
-            if(!message) return Swal.fire("無法發送", "", "error");
+            c("subbtn").disabled = true;
+            if(!message) {
+                c("subbtn").disabled = false;
+                return Swal.fire("無法發送", "", "error");
+            }
             let t = Date.now();
             db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(String(t)).set({
                 message: message,
