@@ -1,0 +1,12 @@
+/*
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+<canvas id="cnv" width="400" height="400" style="border:1px solid #000000;width: 400px;height: 400px;font-weight: 900;font-family: 'Font Awesome 5 Free';"></canvas>
+*/
+var canvas = document.getElementById("cnv");
+var ctx = canvas.getContext("2d");
+var img = document.createElement("img");
+img.src = "resource/img/background/background.svg";
+for(var i=0;i<5;i++)ctx.drawImage(img, 0, 0, 1920*0.4, 1080*0.4);ctx.font = "900 300px 'Font Awesome 5 Free'";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText("\uf0e0", canvas.width/2, 310);
