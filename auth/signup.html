@@ -223,7 +223,7 @@
             Swal.fire({title: '正在驗證', text: '這可能需要 3~5 秒', showConfirmButton: false});
             firebase.auth().createUserWithEmailAndPassword(inputs[1].value, inputs[2].value).then((user) => {
                 console.log(firebase.auth().currentUser.uid);
-                Swal.fire({title: '正在註冊', text: '這可能需要 5~10 秒', showConfirmButton: false});
+                Swal.fire({title: '正在註冊', text: '這可能需要 3~5 秒', showConfirmButton: false});
                 db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
                     DisplayName: inputs[0].value,
                     Email: inputs[1].value
