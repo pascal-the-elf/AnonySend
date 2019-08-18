@@ -12,22 +12,22 @@ workbox.routing.registerRoute(
     workbox.strategies.networkFirst()
 );
 workbox.routing.registerRoute(
-  /.*\.css/,
-  workbox.strategies.staleWhileRevalidate({
-    cacheName: 'css-cache',
-  })
+    /.*\.css/,
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'css-cache',
+    })
 );
 workbox.routing.registerRoute(
-  /.*\.(?:png|jpg|jpeg|svg|gif)/,
-  workbox.strategies.cacheFirst({
-    cacheName: 'image-cache',
-    plugins: [
-      new workbox.expiration.Plugin({
-        maxEntries: 20,
-        maxAgeSeconds: 1 * 24 * 60 * 60,
-      })
-    ],
-  })
+    /.*\.(?:png|jpg|jpeg|svg|gif)/,
+    workbox.strategies.cacheFirst({
+        cacheName: 'image-cache',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 20,
+                maxAgeSeconds: 1 * 24 * 60 * 60,
+            })
+        ],
+    })
 );
 workbox.precaching.precacheAndRoute([
     "/",
@@ -40,13 +40,11 @@ workbox.precaching.precacheAndRoute([
 
 self.addEventListener('fetch', function(event) {
     event.respondWith(
-        caches.match(event.request)
-            .then(function(response) {
-                    if (response) {
-                        return response;
-                    }
-                    return fetch(event.request);
-                }
-            )
+        caches.match(event.request).then(function(response) {
+            if (response) {
+                return response;
+            }
+            return fetch(event.request);
+        })
     );
 });
