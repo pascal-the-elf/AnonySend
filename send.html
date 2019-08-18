@@ -229,13 +229,7 @@
             });
         }
         function styled(style) {
-            if(style=="colorful") {
-                let b = document.body;
-                b.style.backgroundImage = "url(resource/img/background/background.svg)";
-                b.style.backgroundPosition = "center center";
-                b.style.backgroundRepeat = "no-repeat";
-                b.style.backgroundSize = "cover";
-                b.style.backgroundAttachment = "fixed";
+            const fullscreen = function() {
                 c("w3-bar").style.setProperty("border-bottom", "transparent", "important");
                 c("w3-bar").style.setProperty("background-color", "transparent", "important");
                 c("message").style.setProperty("background-color", "#ffffff8f", "important");
@@ -243,6 +237,24 @@
                 c("subbtn").style.setProperty("background-color", "#ffffff8f", "important");
                 c("subbtn").style.setProperty("border", "0", "important");
                 c("footer").style.setProperty("background-color", "transparent", "important");
+            }
+            if(style=="colorful") {
+                let b = document.body;
+                b.style.backgroundImage = "url(resource/img/background/background.svg)";
+                b.style.backgroundPosition = "center center";
+                b.style.backgroundRepeat = "no-repeat";
+                b.style.backgroundSize = "cover";
+                b.style.backgroundAttachment = "fixed";
+                fullscreen();
+            }
+            if(style=="ocean") {
+                let b = document.body;
+                b.style.backgroundImage = "url(resource/img/background/ocean.svg)";
+                b.style.backgroundPosition = "center center";
+                b.style.backgroundRepeat = "no-repeat";
+                b.style.backgroundSize = "cover";
+                b.style.backgroundAttachment = "fixed";
+                fullscreen();
             }
         }
         function c(n) {return document.getElementsByClassName(n)[0]}
