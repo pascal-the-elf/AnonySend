@@ -241,6 +241,8 @@
                         Swal.fire("你的密碼強度不夠高", "", "error");
                     } else if(authCode == "auth/invalid-email") {
                         Swal.fire("電子郵件格式錯誤", "", "error");
+                    } else {
+                        Swal.fire("發生錯誤", "", "error");
                     }
                     document.getElementById("btn").disabled = false;
                 });
