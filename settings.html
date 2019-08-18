@@ -147,6 +147,7 @@
                         <option value="colorful">彩色</option>
                         <option value="ocean">海洋</option>
                         <option value="mountains">山巒</option>
+                        <option value="random-geo">隨機幾何</option>
                     </select>
                 </fieldset>
                 <br>
@@ -215,6 +216,7 @@
                         if(doc.data().style == "colorful") index = 1;
                         if(doc.data().style == "ocean") index = 2;
                         if(doc.data().style == "mountains") index = 3;
+                        if(doc.data().style == "random-geo") index = 4;
                         document.getElementsByClassName("style-selector")[0].options[index].selected = true;
                     });
                 }
