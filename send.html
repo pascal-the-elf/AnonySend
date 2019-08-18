@@ -246,6 +246,7 @@
                 b.style.backgroundSize = "cover";
                 b.style.backgroundAttachment = "fixed";
                 fullscreen();
+                console.log("此背景由 halftonepro.com 提供");
             }
             if(style=="ocean") {
                 let b = document.body;
@@ -255,6 +256,17 @@
                 b.style.backgroundSize = "cover";
                 b.style.backgroundAttachment = "fixed";
                 fullscreen();
+                console.log("此背景由 halftonepro.com 提供");
+            }
+            if(style=="mountains") {
+                let b = document.body;
+                b.style.backgroundImage = "url(resource/img/background/mountains.svg)";
+                b.style.backgroundPosition = "center center";
+                b.style.backgroundRepeat = "no-repeat";
+                b.style.backgroundSize = "cover";
+                b.style.backgroundAttachment = "fixed";
+                fullscreen();
+                console.log("此背景由 SVGBackgrounds.com 提供");
             }
         }
         function c(n) {return document.getElementsByClassName(n)[0]}
