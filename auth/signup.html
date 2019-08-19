@@ -26,6 +26,9 @@
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
         var fa = 1;
+        if(urlKey("code")) {
+            window.history.replaceState("註冊 | AnonySend", "註冊 | AnonySend", "./signup");
+        }
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC');
@@ -156,7 +159,8 @@
                         </div>
                         <div style="width: 100%">
                             <label>輸入邀請碼</label>
-                            <input class="w3-input" type="text" style="text-transform: uppercase;">
+                            <input id="code" class="w3-input" type="text" style="text-transform: uppercase;">
+                            <script>if(urlKey("code"))document.getElementById("code").value = urlKey("code")</script>
                         </div>
                         <div style="width: 100%">
                             <a class="w3-right w3-margin-top" href="/declaration" target="_blank">使用者協議及隱私權政策</a>
