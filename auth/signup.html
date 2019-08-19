@@ -235,12 +235,14 @@
                     console.log("User Created!");
                     Swal.fire({title: '正在註冊', text: '這可能需要 3~5 秒', showConfirmButton: false});
                     db.collection("Invitation").doc(String(inputs[4].value.toUpperCase())).update({used: true, user: firebase.auth().currentUser.uid});
+                    const g = function(){const o="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";for(var n="",r=0;r<4;r++)n+=o[Math.floor(Math.random()*o.length)];return n};
+                    for(var i = 0; i < 5; i++) db.collection("Invitation").doc(String(g())).set({creator: firebase.auth().currentUser.uid, used: false}).then(()=>{console.log("created")});
                     db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
                         DisplayName: inputs[0].value,
                         Email: inputs[1].value
                     }).then(()=>{
                         firebase.auth().currentUser.sendEmailVerification();
-                        Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往信箱頁面", "success").then(()=>{location.href="/inbox"});
+                        setTimeout(function(){Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往信箱頁面", "success").then(()=>{location.href="/inbox"});}, 500);
                     });
                 }).catch((error) => {
                     var authCode = error.code;
