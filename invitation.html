@@ -145,9 +145,10 @@
         </span>
     </div>
     <script>
-        if(urlKey("code"))
-            document.getElementById("code").innerHTML = urlKey("code");
-        else
+        if(urlKey("code")) {
+            document.getElementsByClassName("code")[0].innerHTML = urlKey("code");
+            document.getElementsByClassName("code")[0].onclick = function() {location.href = "/auth/signup?code="+urlKey("code")};
+        } else
             location.href = "/";
     </script>
 </body>
