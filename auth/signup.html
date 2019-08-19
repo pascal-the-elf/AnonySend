@@ -119,7 +119,7 @@
             .card { width: 320px; box-shadow: none; }
         }
         @media screen and (min-width: 400px) and (max-width: 700px) {
-            .card { width: 350px }
+            .card { width: 350px; box-shadow: none; }
         }
         @media screen and (min-width: 700px) {
             .card { width: 600px }
@@ -153,6 +153,10 @@
                         <div style="width: 100%">
                             <label>再次輸入密碼</label>
                             <input class="w3-input" type="password">
+                        </div>
+                        <div style="width: 100%">
+                            <label>輸入邀請碼</label>
+                            <input class="w3-input" type="text" style="text-transform: uppercase;">
                         </div>
                         <div style="width: 100%">
                             <a class="w3-right w3-margin-top" href="/declaration" target="_blank">使用者協議及隱私權政策</a>
@@ -212,7 +216,7 @@
         }
         var inputs = document.getElementsByTagName("input");
         function _signup() {
-            if(!inputs[0].value || !inputs[1].value || !inputs[2].value || !inputs[3].value) {
+            if(!inputs[0].value || !inputs[1].value || !inputs[2].value || !inputs[3].value || !inputs[4].value) {
                 Swal.fire("請輸入完整資訊", "", "error");
                 return;
             }
@@ -222,18 +226,19 @@
             }
             document.getElementById("btn").disabled = true;
             Swal.fire({title: '正在驗證', text: '這可能需要 3~5 秒', showConfirmButton: false});
-            firebase.auth().createUserWithEmailAndPassword(inputs[1].value, inputs[2].value).then((user) => {
-                console.log(firebase.auth().currentUser.uid);
-                Swal.fire({title: '正在註冊', text: '這可能需要 3~5 秒', showConfirmButton: false});
-                db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
-                    DisplayName: inputs[0].value,
-                    Email: inputs[1].value
-                }).then(()=>{
-                    firebase.auth().currentUser.sendEmailVerification();
-                    Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往信箱頁面", "success").then(()=>{location.href="/inbox"});
-                });
-            })
-                .catch((error) => {
+            db.collection("Invitation").doc(String(inputs[4].value.toUpperCase())).get().then(doc => {
+                firebase.auth().createUserWithEmailAndPassword(inputs[1].value, inputs[2].value).then((user) => {
+                    console.log("User Created!");
+                    Swal.fire({title: '正在註冊', text: '這可能需要 3~5 秒', showConfirmButton: false});
+                    db.collection("Invitation").doc(String(inputs[4].value.toUpperCase())).update({used: true, user: firebase.auth().currentUser.uid});
+                    db.collection("User").doc(firebase.auth().currentUser.uid).collection("Open").doc("basic").set({
+                        DisplayName: inputs[0].value,
+                        Email: inputs[1].value
+                    }).then(()=>{
+                        firebase.auth().currentUser.sendEmailVerification();
+                        Swal.fire("註冊成功", "你的帳號已成功註冊並已自動登入，確認後將前往信箱頁面", "success").then(()=>{location.href="/inbox"});
+                    });
+                }).catch((error) => {
                     var authCode = error.code;
                     var authMsg = error.message;
                     if(authCode == "auth/email-already-in-use") {
@@ -247,6 +252,8 @@
                     }
                     document.getElementById("btn").disabled = false;
                 });
+            });
+            
         }
         function username(uid=UID) {
             console.log(uid);

@@ -120,11 +120,12 @@
 <body>
     <div class="content">
         <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
+        <div class="w3-bar w3-border-bottom" style="z-index: 2">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
             <a class="w3-bar-item w3-button" href="javascript:location.href='inbox'">信箱</a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
+        <div id="bar"></div>
         <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
         <div class="w3-center hide">
             <div class="wrapper w3-padding">
@@ -190,6 +191,7 @@
                 document.getElementsByClassName("auth")[0].href = "/settings";
                 username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
                 loadDefault();
+                loadInvitations();
             } else {
                 location.href = "/auth/?msg=需要登入";
             }
@@ -227,6 +229,23 @@
                     document.getElementsByClassName("hide")[0].classList.remove("hide");
                     document.getElementsByClassName("loading")[0].classList.add("loadinghide");
                 }
+            });
+        }
+        function loadInvitations() {
+            db.collection("Invitation").where("creator", "==", firebase.auth().currentUser.uid).where("used", "==", false).get().then(function(querySnapshot) {
+                if(querySnapshot.size == 0) return;
+                let bar = document.createElement("div");
+                bar.classList.add("w3-bar", "w3-border-bottom");
+                bar.style.zIndex = 2;
+                querySnapshot.forEach(doc => {
+                    let url = document.createElement("a");
+                    url.classList.add("w3-bar-item", "invitation");
+                    url.innerHTML = doc.id;
+                    url.href = "/invitation?code="+doc.id;
+                    url.target = "_blank";
+                    bar.appendChild(url);
+                });
+                document.getElementById("bar").appendChild(bar);
             });
         }
         function username(uid=UID) {
