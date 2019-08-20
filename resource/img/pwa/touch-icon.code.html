@@ -6,6 +6,7 @@
     var ctx = canvas.getContext("2d");
     var img = document.createElement("img");
     img.src = "https://anonysend.ml/resource/img/background/background.svg";
+    
     ctx.beginPath();
     ctx.font = "900 900px 'Font Awesome 5 Free'";
     ctx.textAlign = "center";
@@ -15,19 +16,9 @@
     ctx.beginPath();
     ctx.globalCompositeOperation = "source-in";
     for(var i=0;i<5;i++)ctx.drawImage(img, 300, 300, 1920, 1080, 50, 50, 950, 950);
+    
     ctx.globalCompositeOperation = "destination-over";
     ctx.fillStyle = "#22242b";
     ctx.fillRect(0,0,2000,2000);
-    canvas.toBlob(function(blob) {
-        var newImg = document.createElement("img"),
-            url = URL.createObjectURL(blob);
-        
-        newImg.onload = function() {
-            // no longer need to read the blob so it's revoked
-            URL.revokeObjectURL(url);
-        };
-        
-        newImg.src = url;
-        document.body.appendChild(newImg);
-    });
+    
 </script>
