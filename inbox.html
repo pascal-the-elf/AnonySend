@@ -110,7 +110,7 @@
             font-size: 1.2rem;
             word-break: break-all;
         }
-        .tools {
+        .reply, .tools {
             float: right;
             clear: left;
             cursor: pointer;
@@ -456,10 +456,10 @@
             var r = document.getElementsByClassName("reply");
             var t = document.getElementsByClassName("tools");
             if(r.length && t.length) {
-                for(i in t) {
+                for(i = 0; i < t.length; i++) {
                     t[i].classList.toggle("hide");
                 }
-                for(i in r) {
+                for(i = 0; i < r.length; i++) {
                     r[i].classList.toggle("hide");
                 }
             }
