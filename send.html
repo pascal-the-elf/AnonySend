@@ -213,6 +213,7 @@
                 c("subbtn").disabled = false;
                 return Swal.fire("無法發送", "", "error");
             }
+            localStorage.lastSend = Date.now();
             let t = Date.now();
             db.collection("User").doc(uid).collection("inbox").doc("anonymous").collection("msg").doc(String(t)).set({
                 message: message,
