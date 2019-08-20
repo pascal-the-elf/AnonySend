@@ -209,7 +209,7 @@
         }
         function msg(message, name="anonymous") {
             c("subbtn").disabled = true;
-            if(!message || parseInt(localStorage.lastSend)+3000 > Date.now()) {
+            if(!message || parseInt(localStorage.lastSend || 0)+3000 > Date.now()) {
                 c("subbtn").disabled = false;
                 return Swal.fire("無法發送", "", "error");
             }
