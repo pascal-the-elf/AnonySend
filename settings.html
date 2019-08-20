@@ -134,9 +134,9 @@
                 <input class="w3-input" type="text">
                 <br>
                 <label>信箱中回覆的顏色</label>
-                <select class="w3-select reply-color-selector" onchange="localStorage.replyColor=this.value;Swal.fire('已儲存', '', 'success')">
+                <select class="w3-select reply-color-selector" onchange="localStorage.replyColor=this.value;Swal.fire('已儲存', '', 'success')" onload="let c=localStorage.replyColor;if(c=='#2196F3')this.options[1].selected=true;if(c=='#4CAF50')this.options[2].selected=true;if(c=='#f44336')this.options[3].selected=true;">
                     <option value="#000">黑色</option>
-                    <option value="#ddffff">藍色</option>
+                    <option value="#2196F3">藍色</option>
                     <option value="#4CAF50">綠色</option>
                     <option value="#f44336">紅色</option>
                 </select>
