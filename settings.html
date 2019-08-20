@@ -133,7 +133,14 @@
                 <label>名稱</label>
                 <input class="w3-input" type="text">
                 <br>
-                
+                <label>信箱中回覆的顏色</label>
+                <select class="w3-select reply-color-selector" onchange="localStorage.replyColor=this.value;Swal.fire('已儲存', '', 'success')">
+                    <option value="#000">黑色</option>
+                    <option value="#ddffff">藍色</option>
+                    <option value="#4CAF50">綠色</option>
+                    <option value="#f44336">紅色</option>
+                </select>
+
                 <h2>信箱偏好</h2>
                 <hr>
                 <fieldset class="w3-round">
