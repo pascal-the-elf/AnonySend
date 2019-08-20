@@ -1,6 +1,6 @@
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 <canvas id="cnv" width="1080" height="1080" style="border:1px solid #000000;width: 400px;height: 400px;font-weight: 900;font-family: 'Font Awesome 5 Free';"></canvas>
+
 <script>
     var canvas = document.getElementById("cnv");
     var ctx = canvas.getContext("2d");
@@ -14,5 +14,22 @@
     
     ctx.beginPath();
     ctx.globalCompositeOperation = "source-in";
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,2000,2000);
     for(var i=0;i<5;i++)ctx.drawImage(img, 300, 300, 1920, 1080, 50, 50, 950, 950);
+    ctx.globalCompositeOperation = "destination-over";
+    ctx.fillStyle = "#22242b";
+    ctx.fillRect(0,0,2000,2000);
+    canvas.toBlob(function(blob) {
+        var newImg = document.createElement("img"),
+            url = URL.createObjectURL(blob);
+        
+        newImg.onload = function() {
+            // no longer need to read the blob so it's revoked
+            URL.revokeObjectURL(url);
+        };
+        
+        newImg.src = url;
+        document.body.appendChild(newImg);
+    });
 </script>
