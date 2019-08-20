@@ -159,6 +159,7 @@
         <!-- Navigation -->
         <div class="w3-bar w3-border-bottom">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
+            <a class="w3-bar-item w3-button" href="javascript:switchReply()"><i class="fas fa-camera w3-text-black"></i></a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
         </div>
         
@@ -333,6 +334,7 @@
                 let card = document.createElement("div");
                 let time = document.createElement("p");
                 let msg = document.createElement("p");
+                let reply = document.createElement("div");
                 let tools = document.createElement("div");
                 let translat = document.createElement("span");
                 let respond = document.createElement("span");
@@ -345,6 +347,8 @@
                 time.innerHTML = data.time.toDate().toLocaleString() + " · " + moment(data.time.toDate()).toNow();
                 msg.classList.add("msg", "w3-margin-left");
                 msg.innerHTML = data.message;
+                reply.classList.add("reply", "w3-margin-right", "hide");
+                reply.innerHTML = data.response;
                 tools.classList.add("tools", "w3-margin-right");
                 translat.innerHTML = '<i class="fas fa-language w3-margin-left"></i>' + " 翻譯";
                 translat.onclick = function() {
@@ -373,6 +377,7 @@
                 tools.appendChild(del);
                 card.appendChild(time);
                 card.appendChild(msg);
+                card.appendChild(reply);
                 card.appendChild(tools);
                 wrapper.appendChild(card);
                 stage.appendChild(wrapper);
@@ -446,6 +451,18 @@
                     return doc.data().DisplayName;
                 }));
             return new Promise(x=>x("none"));
+        }
+        function switchReply() {
+            var r = document.getElementsByClassName("reply");
+            var t = document.getElementsByClassName("tools");
+            if(r.length && t.length) {
+                for(i in t) {
+                    t[i].classList.toggle("hide");
+                }
+                for(i in r) {
+                    r[i].classList.toggle("hide");
+                }
+            }
         }
     </script>
     <script>
