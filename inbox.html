@@ -348,6 +348,7 @@
                 msg.classList.add("msg", "w3-margin-left");
                 msg.innerHTML = data.message;
                 reply.classList.add("reply", "w3-margin-right", "hide");
+                reply.style.color = localStorage.replyColor || "#000";
                 reply.innerHTML = data.response;
                 tools.classList.add("tools", "w3-margin-right");
                 translat.innerHTML = '<i class="fas fa-language w3-margin-left"></i>' + " 翻譯";
