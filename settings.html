@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-tw">
 <head>
     <meta name="robots" content="noindex">
     <title>設定 | AnonySend</title>
@@ -131,9 +131,9 @@
                 <h2>個人資訊</h2>
                 <hr>
                 <label>名稱</label>
-                <input class="w3-input" type="text">
+                <input class="w3-input" type="text" name="DisplayName">
                 <label>信箱中回覆的字型</label>
-                <select class="w3-select reply-font-selector" onchange="localStorage.replyFont=this.value;Swal.fire('已儲存', '', 'success')">
+                <select class="w3-select reply-font-selector" name="reply-font-selector" onchange="localStorage.replyFont=this.value;Swal.fire('已儲存', '', 'success')">
                     <option value="Noto Sans TC">思源黑體</option>
                     <option value="SetoFont">瀨戶字體</option>
                 </select>
@@ -143,7 +143,7 @@
                     if(c=='SetoFont')s.options[1].selected=true;})()
                 </script>
                 <label>信箱中回覆的顏色</label>
-                <select class="w3-select reply-color-selector" onchange="localStorage.replyColor=this.value;Swal.fire('已儲存', '', 'success')">
+                <select class="w3-select reply-color-selector" name="reply-color-selector" onchange="localStorage.replyColor=this.value;Swal.fire('已儲存', '', 'success')">
                     <option value="#000">黑色</option>
                     <option value="#2196F3">藍色</option>
                     <option value="#4CAF50">綠色</option>
@@ -156,7 +156,7 @@
                     if(c=='#f44336')s.options[3].selected=true;})()
                 </script>
                 <label>信箱中回覆的大小</label>
-                <select class="w3-select reply-size-selector" onchange="localStorage.replySize=this.value;Swal.fire('已儲存', '', 'success')">
+                <select class="w3-select reply-size-selector" name="reply-size-selector" onchange="localStorage.replySize=this.value;Swal.fire('已儲存', '', 'success')">
                     <option value="16px">標準</option>
                     <option value="20px">放大</option>
                 </select>
@@ -171,11 +171,11 @@
                 <fieldset class="w3-round">
                     <legend>Inbox Code</legend>
                     <label>代碼 (請於信箱頁面刪除重新建立)</label>
-                    <input class="w3-input" type="text" disabled>
+                    <input class="w3-input" type="text" name="inbox-code" disabled>
                     <label>描述</label>
-                    <input class="w3-input" type="text">
+                    <input class="w3-input" type="text" name="inbox-description">
                     <label>樣式</label>
-                    <select class="w3-select style-selector" name="option">
+                    <select class="w3-select style-selector" name="inbox-style-selector">
                         <option value="standard">標準</option>
                         <option value="colorful">彩色</option>
                         <option value="ocean">海洋</option>
