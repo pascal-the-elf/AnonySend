@@ -10,6 +10,7 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image" content="resource/img/AnonySend.fbpreview.png">
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preload" href="resource/font/setofont.woff" as="font" as="font/woff" crossorigin="anonymous">
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script src="https://unpkg.com/quicklink@1.0.0/dist/quicklink.umd.js"></script>
@@ -238,7 +239,6 @@
         function deleteIt(code) {
             db.collection("User").doc(firebase.auth().currentUser.uid).collection("inbox").doc("anonymous").collection("msg").doc(String(code)).delete().then(() => {
                 Swal.fire("已刪除", "", "success");
-                
             });
         }
         function checkIt(code) {
@@ -246,7 +246,6 @@
                 resolved: true
             }).then(() => {
                 Swal.fire("已確認", "", "success");
-                
             });
         }
         function uncheckIt(code) {
@@ -254,7 +253,6 @@
                 resolved: false
             }).then(() => {
                 Swal.fire("已恢復成未確認", "", "success");
-                
             });
         }
         function respondIt(code, res="") {
@@ -349,6 +347,7 @@
                 msg.innerHTML = data.message;
                 reply.classList.add("reply", "w3-margin-right", "hide");
                 reply.style.color = localStorage.replyColor || "#000";
+                reply.style.fontFamily = localStorage.replyFont || "Noto Sans TC";
                 reply.innerHTML = data.response;
                 tools.classList.add("tools", "w3-margin-right");
                 translat.innerHTML = '<i class="fas fa-language w3-margin-left"></i>' + " 翻譯";
