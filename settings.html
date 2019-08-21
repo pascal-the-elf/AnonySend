@@ -132,6 +132,16 @@
                 <hr>
                 <label>名稱</label>
                 <input class="w3-input" type="text">
+                <label>信箱中回覆的字型</label>
+                <select class="w3-select reply-font-selector" onchange="localStorage.replyFont=this.value;Swal.fire('已儲存', '', 'success')">
+                    <option value="Noto Sans TC">思源黑體</option>
+                    <option value="SetoFont">瀨戶字體</option>
+                </select>
+                <script>
+                    (function(){var c=localStorage.replyFont;var s=document.getElementsByClassName("reply-font-selector")[0];
+                    if(c=='Noto Sans TC')s.options[0].selected=true;
+                    if(c=='SetoFont')s.options[1].selected=true;})()
+                </script>
                 <label>信箱中回覆的顏色</label>
                 <select class="w3-select reply-color-selector" onchange="localStorage.replyColor=this.value;Swal.fire('已儲存', '', 'success')">
                     <option value="#000">黑色</option>
@@ -144,6 +154,15 @@
                     if(c=='#2196F3')s.options[1].selected=true;
                     if(c=='#4CAF50')s.options[2].selected=true;
                     if(c=='#f44336')s.options[3].selected=true;})()
+                </script>
+                <label>信箱中回覆的大小</label>
+                <select class="w3-select reply-size-selector" onchange="localStorage.replySize=this.value;Swal.fire('已儲存', '', 'success')">
+                    <option value="16px">標準</option>
+                    <option value="20px">放大</option>
+                </select>
+                <script>
+                    (function(){var c=localStorage.replySize;var s=document.getElementsByClassName("reply-size-selector")[0];
+                    if(c=='20px')s.options[1].selected=true;})()
                 </script>
                 <p></p>
 
