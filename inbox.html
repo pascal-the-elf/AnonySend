@@ -88,17 +88,16 @@
         .w3-bar-item {
             padding: 8px 10px !important;
         }
-        .stage {
-            
-        }
         .wrapper {
             width: 100%;
             text-align: center;
         }
         .card {
+            opacity: 0;
             display: inline-block;
             max-width: 600px;
             text-align: left;
+            animation: downfade 0.6s ease forwards 1;
         }
         .time {
             float: left;
@@ -144,6 +143,44 @@
             font-display:swap;
             src:local('SetoFont'),local('SetoFont'),url(resource/font/setofont.woff) format('woff')
         }
+        .inbox-bar {
+            z-index: 80;
+            position: relative !important;
+            animation: down40 0.4s ease forwards 1;
+        }
+        .listen-type {
+            z-index: 60;
+            position: relative !important;
+            animation: down100 1.2s ease forwards 1;
+        }
+        @keyframes down40 {
+            0% {
+                top: -40px;
+            }
+            100% {
+                top: 0px;
+            }
+        }
+        @keyframes down100 {
+            0% {
+                top: -100px;
+            }
+            100% {
+                top: 0px;
+            }
+        }
+        @keyframes downfade {
+            0% {
+                opacity: 0;
+                top: -100px;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                top: 0px;
+                transform: scale(1);
+            }
+        }
     </style>
     <!-- PWA Meta -->
     <meta content="yes" name="apple-mobile-web-app-capable">
@@ -165,7 +202,7 @@
 <body>
     <div class="content">
         <!-- Navigation -->
-        <div class="w3-bar w3-border-bottom">
+        <div class="w3-bar w3-border-bottom" style="z-index: 100">
             <a class="w3-bar-item w3-button" href="/"><i class="fas fa-envelope w3-text-black"></i><b> AnonySend</b></a>
             <a class="w3-bar-item w3-button" href="javascript:switchReply()" aria-label="Screenshot Mode"><i class="fas fa-camera w3-text-black"></i></a>
             <a class="w3-bar-item w3-button w3-text-black w3-right auth" href="/auth/">登入</a>
@@ -174,7 +211,7 @@
         <div class="detail">
             
         </div>
-        <div class="w3-center w3-margin listen-type hide">
+        <div id="listen-type" class="w3-center w3-margin hide">
             <button class="w3-button w3-border w3-round" onclick="listen('unchecked')">未確認</button>
             <button class="w3-button w3-border w3-round" onclick="listen('all')">全部</button>
             <button class="w3-button w3-border w3-round" onclick="listen('checked')">已確認</button>
@@ -193,7 +230,7 @@
         var listener = function(){console.log("Listener Registered.")};
         var inboxes = [];
         const stage = document.getElementsByClassName("stage")[0];
-        const listen_type = document.getElementsByClassName("listen-type")[0];
+        const listen_type = document.getElementById("listen-type");
         const detail = document.getElementsByClassName("detail")[0];
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
@@ -315,6 +352,7 @@
                 window.history.replaceState("Inbox: UNCHECKED", "信箱 | HSNU 1481", "?type=unchecked");
             }
             listen_type.classList.remove("hide");
+            listen_type.classList.add("listen-type");
         }
         function refresh(querySnapshot) {
             stage.innerHTML = "";
@@ -331,6 +369,7 @@
                 wrapper.appendChild(card);
                 stage.appendChild(wrapper);
             }
+            let animationDelay = 4;
             querySnapshot.forEach(function(doc) {
                 var data = doc.data();
                 let code = doc.id;
@@ -348,6 +387,7 @@
                 wrapper.classList.add("wrapper", "w3-margin-bottom");
                 wrapper.id = code;
                 card.classList.add("card", "w3-card", "w3-round");
+                card.style.animationDelay = ""+animationDelay++/10+"s";
                 time.classList.add("time", "w3-margin-left");
                 time.innerHTML = data.time.toDate().toLocaleString() + " · " + moment(data.time.toDate()).toNow();
                 msg.classList.add("msg", "w3-margin-left");
@@ -400,7 +440,7 @@
                 let copy = document.createElement("span");
                 let del = document.createElement("span");
                 
-                bar.classList.add("w3-bar", "w3-border-bottom");
+                bar.classList.add("w3-bar", "w3-border-bottom", "inbox-bar");
                 url.classList.add("w3-bar-item");
                 url.innerHTML = "AnonySend.ml/i/"+doc.id;
                 url.href = location.protocol+"//"+location.hostname+"/i/"+doc.id;
