@@ -1,0 +1,51 @@
+<html lang="zh-tw">
+<head>
+    <meta name="robots" content="noindex">
+    <title>Cloud Firestore vs Realtime Database</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.4.2/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyARHb953Ex6hUR10TO6z5EM3DFp3xTnX50",
+            authDomain: "anonysendmail.firebaseapp.com",
+            databaseURL: "https://anonysendmail.firebaseio.com",
+            projectId: "anonysendmail",
+            storageBucket: "anonysendmail.appspot.com",
+            messagingSenderId: "370386913250",
+            appId: "1:370386913250:web:11acadad21c586fa"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var fs = firebase.firestore();
+        var db = firebase.database();
+    </script>
+</head>
+<body>
+    <button onclick="test()">TEST</button>
+    <p>Cloud Firestore: </p>
+    <p>Realtime Database: </p>
+    <script>
+        const b = document.getElementsByTagName("button");
+        const p = document.getElementsByTagName("p");
+        function test() {
+            b[0].disabled = true;
+            p[0].innerHTML = "Cloud Firestore: Testing";
+            p[1].innerHTML = "Realtime Database: Testing";
+            
+            var time = Date.now();
+            fs.collection("Inbox").doc("jacoblincool").get().then(doc=>{
+                console.log("Cloud Firestore: " + doc.data());
+                p[0].innerHTML = "Cloud Firestore: "+(Date.now()-time)+"ms";
+            });
+            
+            var time = Date.now();
+            db.ref('/inbox/jacoblincool').once('value').then(snapshot=>{
+                console.log("Realtime Database: " + snapshot.val());
+                p[1].innerHTML = "Realtime Database: "+(Date.now()-time)+"ms";
+            });
+        }
+    </script>
+</body>
+</html>
