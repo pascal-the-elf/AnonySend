@@ -85,7 +85,7 @@
         .w3-bar-item {
             padding: 8px 10px !important;
         }
-        h2 {
+        h2.word {
             margin: 0 0 -16px 0 !important;
         }
         .wrapper {
@@ -143,7 +143,7 @@
         <div class="w3-margin-top w3-center stage hide">
             <div class="wrapper">
                 <h2>匿名信箱</h2>
-                <h1 class="head"></h1>
+                <h1 class="head word"></h1>
                 <textarea class="message w3-input w3-border w3-round" rows="8"></textarea>
                 <button class="subbtn w3-margin-top w3-button w3-border w3-round" onclick="Swal.fire({title: '傳送中', type: 'info', showConfirmButton: false});msg(document.getElementsByClassName('message')[0].value)">傳送</button>
             </div>
