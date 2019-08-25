@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LINKS</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
+    <style>
+        html {
+            height: 100%;
+            width: 100%;
+        }
+        body {
+            min-height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: flex-start;
+        }
+        .content {
+            margin: 10px 0 0 0;
+            flex: 1;
+        }
+        header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: flex-start;
+        }
+        header > div {
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+        header img {
+            height: 30px;
+            width: 30px;
+            margin: -14px 0 0 0;
+        }
+        header .title {
+            font-size: 30px;
+        }
+        .links {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: flex-start;
+        }
+        .links > a {
+            width: 80%;
+            margin: 0 0 16px 0;
+            display: block;
+        }
+        footer {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <header>
+            <div>
+                <img class="w3-round" src="https://raw.githubusercontent.com/pascal-the-elf/AnonySend/master/resource/img/pwa/apple-icon.192.png">
+                <span class="title">AnonySend</span>
+            </div>
+            <div>
+                <p>AnonySend - 一個免費, 簡潔, 無廣告的匿名信服務! 立即註冊並開始使用!</p>
+            </div>
+        </header>
+        <div class="links">
+            <a class="w3-button w3-round w3-border" href="https://anonysend.ml/" target="_blank">AnonySend 官方網站</a>
+            <a class="w3-button w3-round w3-border" href="https://hackmd.io/@PascalTheElf/AnonySend#-AnonySend-使用手冊" target="_blank">AnonySend 使用手冊</a>
+            <a class="w3-button w3-round w3-border" href="https://anonysend.ml/send?u=support" target="_blank">AnonySend 客服信箱</a>
+        </div>
+    </div>
+    <footer></footer>
+    <script src="https://unpkg.com/quicklink@1.0.1/dist/quicklink.umd.js"></script>
+    <script>
+        quicklink({ priority: true });
+    </script>
+</body>
+</html>
