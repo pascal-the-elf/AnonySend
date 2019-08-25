@@ -248,17 +248,20 @@
                         let image = document.createElement("input");
                         let description = document.createElement("input");
                         let urlList = document.createElement("div");
+                        name.classList.add("w3-input", "w3-margin");
                         name.value = data.name;
                         name.placeholder = "名稱";
+                        image.classList.add("w3-input", "w3-margin");
                         image.value = data.image;
                         image.placeholder = "圖片網址";
+                        description.classList.add("w3-input", "w3-margin");
                         description.value = data.description;
                         description.placeholder = "簡介";
                         for(var i = 0; i < data.url.length; i++) {
                             let card = document.createElement("div");
                             let linkName = document.createElement("input");
                             let linkUrl = document.createElement("input");
-                            card.classList.add("w3-card", "w3-round");
+                            card.classList.add("w3-card", "w3-round", "w3-margin");
                             linkName.classList.add("w3-input");
                             linkName.value = data.url[i].name;
                             linkName.placeholder = "連結名稱";
@@ -270,7 +273,7 @@
                             urlList.appendChild(card);
                         }
                         let AddLink = document.createElement("button");
-                        AddLink.classList.add("w3-button");
+                        AddLink.classList.add("w3-button", "w3-right");
                         AddLink.innerHTML = "增加網址";
                         stage.appendChild(name);
                         stage.appendChild(image);
