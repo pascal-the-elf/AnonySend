@@ -190,7 +190,7 @@
                 SignIn();
             }
         });
-        linksAuth.onAuthStateChanged(user => { if(user) { loadConfig(); } };
+        linksAuth.onAuthStateChanged(user => { if(user) { loadConfig(); } });
         function SignIn() {
             db.ref('/links/'+firebase.auth().currentUser.uid).once('value').then(ss => {
                 if(ss.val()) {
