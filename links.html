@@ -186,7 +186,7 @@
                 username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
                 firebase.firestore().collection("Inbox").where("owner", "==", firebase.auth().currentUser.uid).get().then(function(querySnapshot) {
                     querySnapshot.forEach(doc => inboxName = doc.id);
-                }
+                });
                 SignIn();
             }
         });
