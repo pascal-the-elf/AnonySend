@@ -212,7 +212,7 @@
             console.log("Loading Config");
             linksdb.ref("/compass/"+linksAuth.currentUser.uid).once('value').then(ss => {
                 if(!ss.val()) {
-                    Sawl.fire({
+                    Swal.fire({
                         title: '建立連結代碼',
                         text: '注意! 設定後無法變更!',
                         input: 'text',
