@@ -243,6 +243,7 @@
                 else {
                     let stage = document.getElementsByClassName("wrapper")[0];
                     linksdb.ref("/QG/"+ss.val().links).once('value').then(data => {
+                        data = data.val();
                         let name = document.createElement("input");
                         let image = document.createElement("input");
                         let description = document.createElement("input");
