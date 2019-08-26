@@ -244,19 +244,26 @@
                     let stage = document.getElementsByClassName("wrapper")[0];
                     linksdb.ref("/QG/"+ss.val().links).once('value').then(data => {
                         data = data.val();
+                        let wrapper = [document.createElement("div"), document.createElement("div"), document.createElement("div")];
                         let name = document.createElement("input");
                         let image = document.createElement("input");
                         let description = document.createElement("input");
                         let urlList = document.createElement("div");
-                        name.classList.add("w3-input", "w3-margin");
+                        name.classList.add("w3-input");
                         name.value = data.name;
                         name.placeholder = "名稱";
-                        image.classList.add("w3-input", "w3-margin");
+                        wrapper[0].classList.add("w3-margin");
+                        wrapper[0].appendChild(name);
+                        image.classList.add("w3-input");
                         image.value = data.image;
                         image.placeholder = "圖片網址";
-                        description.classList.add("w3-input", "w3-margin");
+                        wrapper[1].classList.add("w3-margin");
+                        wrapper[1].appendChild(image);
+                        description.classList.add("w3-input");
                         description.value = data.description;
                         description.placeholder = "簡介";
+                        wrapper[2].classList.add("w3-margin");
+                        wrapper[2].appendChild(description);
                         for(var i = 0; i < data.url.length; i++) {
                             let card = document.createElement("div");
                             let linkName = document.createElement("input");
@@ -275,9 +282,9 @@
                         let AddLink = document.createElement("button");
                         AddLink.classList.add("w3-button", "w3-right");
                         AddLink.innerHTML = "增加網址";
-                        stage.appendChild(name);
-                        stage.appendChild(image);
-                        stage.appendChild(description);
+                        stage.appendChild(wrapper[0]);
+                        stage.appendChild(wrapper[1]);
+                        stage.appendChild(wrapper[2]);
                         stage.appendChild(urlList);
                         stage.appendChild(AddLink);
                     });
