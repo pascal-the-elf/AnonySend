@@ -249,30 +249,31 @@
                         let image = document.createElement("input");
                         let description = document.createElement("input");
                         let urlList = document.createElement("div");
-                        name.classList.add("w3-input");
+                        name.classList.add("w3-input", "name");
                         name.value = data.name;
                         name.placeholder = "名稱";
                         wrapper[0].classList.add("w3-margin");
                         wrapper[0].appendChild(name);
-                        image.classList.add("w3-input");
+                        image.classList.add("w3-input", "image");
                         image.value = data.image;
                         image.placeholder = "圖片網址";
                         wrapper[1].classList.add("w3-margin");
                         wrapper[1].appendChild(image);
-                        description.classList.add("w3-input");
+                        description.classList.add("w3-input", "description");
                         description.value = data.description;
                         description.placeholder = "簡介";
                         wrapper[2].classList.add("w3-margin");
                         wrapper[2].appendChild(description);
+                        urlList.classList.add("urlList");
                         for(var i = 0; i < data.url.length; i++) {
                             let card = document.createElement("div");
                             let linkName = document.createElement("input");
                             let linkUrl = document.createElement("input");
                             card.classList.add("w3-card", "w3-round", "w3-margin");
-                            linkName.classList.add("w3-input");
+                            linkName.classList.add("w3-input", "linkName");
                             linkName.value = data.url[i].name;
                             linkName.placeholder = "連結名稱";
-                            linkUrl.classList.add("w3-input");
+                            linkUrl.classList.add("w3-input", "linkUrl");
                             linkUrl.value = data.url[i].location;
                             linkUrl.placeholder = "連結網址";
                             card.appendChild(linkName);
@@ -282,6 +283,7 @@
                         let AddLink = document.createElement("button");
                         AddLink.classList.add("w3-button", "w3-right");
                         AddLink.innerHTML = "增加網址";
+                        AddLink.onclick = function(){AddLink()};
                         stage.appendChild(wrapper[0]);
                         stage.appendChild(wrapper[1]);
                         stage.appendChild(wrapper[2]);
@@ -289,6 +291,45 @@
                         stage.appendChild(AddLink);
                     });
                 }
+            });
+        }
+        function AddLink() {
+            let card = document.createElement("div");
+            let linkName = document.createElement("input");
+            let linkUrl = document.createElement("input");
+            card.classList.add("w3-card", "w3-round", "w3-margin");
+            linkName.classList.add("w3-input", "linkName");
+            linkName.value = data.url[i].name;
+            linkName.placeholder = "連結名稱";
+            linkUrl.classList.add("w3-input", "linkUrl");
+            linkUrl.value = data.url[i].location;
+            linkUrl.placeholder = "連結網址";
+            card.appendChild(linkName);
+            card.appendChild(linkUrl);
+            document.getElementsByClassName("urlList")[0].appendChild(card);
+        }
+        function saveLinks() {
+            let c = function(x){return document.getElementsByClassName(x)};
+            let data = {};
+            data.name = c("name")[0].value;
+            data.image = c("image")[0].value;
+            data.description = c("description")[0].value;
+            data.url = [];
+            for(var i = 0; i < c("linkUrl"); i++) {
+                let obj = {};
+                obj.location = c("linkUrl")[i].value;
+                obj.name = c("linkName")[i].value;
+                if(obj.location) data.url.push(obj);
+            }
+            linksdb.ref("/QG/"+ss.val().links).set(data).then(() => {
+                Swal.fire({
+                    title: "已儲存",
+                    type: "success",
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 5000
+                });
             });
         }
         function username(uid=UID) {
