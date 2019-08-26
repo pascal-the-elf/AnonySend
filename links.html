@@ -219,6 +219,7 @@
                     });
                 }
                 else {
+                    linkCode = ss.val().links;
                     let bar = document.createElement("div");
                     let url = document.createElement("a");
                     let copy = document.createElement("span");
@@ -237,7 +238,6 @@
                     document.getElementById("bar").appendChild(bar);
         
                     let stage = document.getElementsByClassName("wrapper")[0];
-                    linkCode = ss.val().links;
                     linksdb.ref("/QG/"+linkCode).once('value').then(data => {
                         data = data.val();
                         let wrapper = [document.createElement("div"), document.createElement("div"), document.createElement("div")];
