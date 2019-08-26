@@ -314,7 +314,7 @@
             data.image = c("image")[0].value;
             data.description = c("description")[0].value;
             data.url = [];
-            for(var i = 0; i < c("linkUrl"); i++) {
+            for(var i = 0; i < c("linkUrl").length; i++) {
                 let obj = {};
                 obj.location = c("linkUrl")[i].value;
                 obj.name = c("linkName")[i].value;
