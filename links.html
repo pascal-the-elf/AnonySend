@@ -228,6 +228,7 @@
                                 links: result.value
                             }).then(() => {
                                 linksdb.ref("/QG/"+result.value).set({
+                                    user: linksAuth.currentUser.uid,
                                     name: result.value,
                                     image: "",
                                     description: "",
@@ -309,7 +310,7 @@
         }
         function saveLinks() {
             let c = function(x){return document.getElementsByClassName(x)};
-            let data = {};
+            let data = {user: linksAuth.currentUser.uid};
             data.name = c("name")[0].value;
             data.image = c("image")[0].value;
             data.description = c("description")[0].value;
