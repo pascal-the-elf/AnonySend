@@ -159,27 +159,7 @@
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script>
-    /*
-        let bar = document.createElement("div");
-        let url = document.createElement("a");
-        let copy = document.createElement("span");
-
-        bar.classList.add("w3-bar", "w3-border-bottom");
-        url.classList.add("w3-bar-item");
-        url.innerHTML = "查看此回覆";
-        url.href = location.href;
-        url.target = "_blank";
-
-        copy.innerHTML = '<i class="far fa-clone w3-margin-left"></i>' + " 複製";
-        copy.onclick = function() {Swal.fire("已複製", "", "success")};
-        copy.dataset.clipboardText = location.href;
-        copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "ib", "copy");
-        new ClipboardJS(copy);
-
-        bar.appendChild(url);
-        bar.appendChild(copy);
-        document.getElementById("bar").appendChild(bar);
-    */
+        
         var inboxName, linkCode;
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
@@ -242,6 +222,23 @@
                     });
                 }
                 else {
+                    let bar = document.createElement("div");
+                    let url = document.createElement("a");
+                    let copy = document.createElement("span");
+                    bar.classList.add("w3-bar", "w3-border-bottom");
+                    url.classList.add("w3-bar-item");
+                    url.innerHTML = "前往多連結頁面";
+                    url.href = "https://links.AnonySend.ml/"+linkCode;
+                    url.target = "_blank";
+                    copy.innerHTML = '<i class="far fa-clone w3-margin-left"></i>' + " 複製";
+                    copy.onclick = function() {Swal.fire({title: "已複製", type: "success", toast: true, position: 'top-end', showConfirmButton: false, timer: 5000})};
+                    copy.dataset.clipboardText = "https://links.AnonySend.ml/"+linkCode;
+                    copy.classList.add("w3-bar-item", "w3-right", "w3-text-blue", "ib", "copy");
+                    new ClipboardJS(copy);
+                    bar.appendChild(url);
+                    bar.appendChild(copy);
+                    document.getElementById("bar").appendChild(bar);
+        
                     let stage = document.getElementsByClassName("wrapper")[0];
                     linkCode = ss.val().links;
                     linksdb.ref("/QG/"+linkCode).once('value').then(data => {
