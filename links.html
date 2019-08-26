@@ -280,15 +280,15 @@
                             card.appendChild(linkUrl);
                             urlList.appendChild(card);
                         }
-                        let AddLink = document.createElement("button");
-                        AddLink.classList.add("w3-button", "w3-right");
-                        AddLink.innerHTML = "增加網址";
-                        AddLink.onclick = function(){AddLink()};
+                        let AddLinkBtn = document.createElement("button");
+                        AddLinkBtn.classList.add("w3-button", "w3-right");
+                        AddLinkBtn.innerHTML = "增加網址";
+                        AddLinkBtn.onclick = function(){AddLink()};
                         stage.appendChild(wrapper[0]);
                         stage.appendChild(wrapper[1]);
                         stage.appendChild(wrapper[2]);
                         stage.appendChild(urlList);
-                        stage.appendChild(AddLink);
+                        stage.appendChild(AddLinkBtn);
                     });
                 }
             });
@@ -299,10 +299,8 @@
             let linkUrl = document.createElement("input");
             card.classList.add("w3-card", "w3-round", "w3-margin");
             linkName.classList.add("w3-input", "linkName");
-            linkName.value = data.url[i].name;
             linkName.placeholder = "連結名稱";
             linkUrl.classList.add("w3-input", "linkUrl");
-            linkUrl.value = data.url[i].location;
             linkUrl.placeholder = "連結網址";
             card.appendChild(linkName);
             card.appendChild(linkUrl);
