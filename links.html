@@ -320,6 +320,9 @@
                 obj.name = c("linkName")[i].value;
                 if(obj.location) data.url.push(obj);
             }
+            if(data.url.length == 0) {
+                data.url = [{name: "匿名信箱", location: "https://anonysend.ml/send?u="+inboxName}];
+            }
             linksdb.ref("/QG/"+linkCode).set(data).then(() => {
                 Swal.fire({
                     title: "已儲存",
