@@ -180,7 +180,7 @@
         bar.appendChild(copy);
         document.getElementById("bar").appendChild(bar);
     */
-        var inboxName;
+        var inboxName, linkCode;
         firebase.auth().onAuthStateChanged(user => {
             if(user) {
                 document.getElementsByClassName("auth")[0].href = "/settings";
@@ -235,14 +235,15 @@
                                         name: "匿名信箱",
                                         location: "https://anonysend.ml/send?u="+inboxName
                                     }]
-                                });
+                                }).then(location.reload);
                             });
                         }
                     });
                 }
                 else {
                     let stage = document.getElementsByClassName("wrapper")[0];
-                    linksdb.ref("/QG/"+ss.val().links).once('value').then(data => {
+                    linkCode = ss.val().links;
+                    linksdb.ref("/QG/"+linkCode).once('value').then(data => {
                         data = data.val();
                         let wrapper = [document.createElement("div"), document.createElement("div"), document.createElement("div")];
                         let name = document.createElement("input");
@@ -319,7 +320,7 @@
                 obj.name = c("linkName")[i].value;
                 if(obj.location) data.url.push(obj);
             }
-            linksdb.ref("/QG/"+ss.val().links).set(data).then(() => {
+            linksdb.ref("/QG/"+linkCode).set(data).then(() => {
                 Swal.fire({
                     title: "已儲存",
                     type: "success",
