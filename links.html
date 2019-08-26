@@ -166,6 +166,8 @@
                     querySnapshot.forEach(doc => inboxName = doc.id);
                 });
                 SignIn();
+            } else {
+                location.href = "auth/?msg=需要登入才能使用 AnonySend Links";
             }
         });
         linksAuth.onAuthStateChanged(user => { if(user) { loadConfig(); } });
