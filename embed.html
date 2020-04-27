@@ -137,8 +137,8 @@
         <div class="loading"><div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
         <div class="w3-margin-top w3-center stage hide">
             <div class="wrapper">
-                <h3 class="word">匿名信箱</h3>
-                <h2 class="head"></h2>
+                <h3 class="word" style="margin: 4px 0">匿名信箱</h3>
+                <h2 class="head" style="margin: 4px 0"></h2>
                 <textarea class="message w3-input w3-border w3-round" rows="5"></textarea>
                 <div class="message">
                     <a href="declaration" target="_blank" style="float: right">使用者協議及隱私權政策</a>
@@ -174,14 +174,15 @@
                     if(doc.data().style) styled(urlKey("style") || doc.data().style);
                     username(doc.data().owner).then(n => name = n).then(() => {
                         document.title = name + " 的匿名信箱 | AnonySend";
-                        Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
-                            setTimeout(function(){
-                                document.getElementsByClassName("head")[0].innerHTML = name;
-                                document.getElementsByClassName("stage")[0].classList.remove("hide");
-                                document.getElementsByClassName("stage")[0].classList.add("return");
-                                document.getElementsByClassName("loading")[0].classList.add("loadinghide");
-                            }, 500);
-                        });
+                        if(urlKey("tell"))
+                            Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
+                                setTimeout(function(){
+                                    document.getElementsByClassName("head")[0].innerHTML = name;
+                                    document.getElementsByClassName("stage")[0].classList.remove("hide");
+                                    document.getElementsByClassName("stage")[0].classList.add("return");
+                                    document.getElementsByClassName("loading")[0].classList.add("loadinghide");
+                                }, 500);
+                            });
                     });
                 }
             });
