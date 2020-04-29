@@ -156,12 +156,6 @@
     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
     <script>
-        firebase.auth().onAuthStateChanged(user => {
-            if(user) {
-                document.getElementsByClassName("auth")[0].href = "/settings";
-                username(firebase.auth().currentUser.uid).then(n => document.getElementsByClassName("auth")[0].innerHTML = n);
-            }
-        });
         var name, uid;
         if(!urlKey("u")) {
             Swal.fire("匿名信箱位置錯誤", "找不到使用者", "error").then(() => {location.href = "/"});
@@ -174,7 +168,7 @@
                     if(doc.data().style) styled(urlKey("style") || doc.data().style);
                     username(doc.data().owner).then(n => name = n).then(() => {
                         document.title = name + " 的匿名信箱 | AnonySend";
-                        if(urlKey("tell"))
+                        if(urlKey("prompt"))
                             Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
                                 setTimeout(function(){
                                     document.getElementsByClassName("head")[0].innerHTML = name;
