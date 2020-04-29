@@ -177,7 +177,7 @@
                 } else {
                     uid = doc.data().owner;
                     if(doc.data().style) styled(doc.data().style);
-                    username(doc.data().owner).then(n => name = n).then(() => {
+                    username(doc.data().owner).then(n => {name = n;}).then(() => {
                         document.title = name + " 的匿名信箱 | AnonySend";
                         Swal.fire("這是 "+name+" 的匿名信箱", doc.data().description , "success").then(() => {
                             setTimeout(function(){
