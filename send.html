@@ -286,6 +286,7 @@
                 script.onload = function() {
                     fullscreen();
                     b.style.backgroundImage = GeoPattern.generate(String(Date.now()),{baseColor: "#fc5656"}).toDataUrl();
+                    b.style.backgroundRepeat = "round";
                 };
                 b.appendChild(script);
                 console.log("此背景由 github.com/btmills/geopattern 提供");
